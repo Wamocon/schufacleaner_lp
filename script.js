@@ -242,7 +242,38 @@
     });
   }
 
-  /* ── 10. CONTACT MODAL ───────────────────────────────────────── */
+  /* ── 10. THEME TOGGLE (Hell / Dunkel) ────────────────────────── */
+  function initThemeToggle() {
+    var btn      = document.getElementById('theme-toggle');
+    var iconMoon = document.getElementById('theme-icon-moon');
+    var iconSun  = document.getElementById('theme-icon-sun');
+    if (!btn) return;
+
+    var html = document.documentElement;
+
+    function applyTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('sc-theme', theme);
+      if (theme === 'dark') {
+        if (iconMoon) iconMoon.style.display = 'none';
+        if (iconSun)  iconSun.style.display  = '';
+      } else {
+        if (iconMoon) iconMoon.style.display = '';
+        if (iconSun)  iconSun.style.display  = 'none';
+      }
+    }
+
+    // Initiales Icon auf gespeichertes Theme setzen
+    var saved = localStorage.getItem('sc-theme') || 'light';
+    applyTheme(saved);
+
+    btn.addEventListener('click', function () {
+      var current = html.getAttribute('data-theme') || 'light';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+  }
+
+  /* ── 11. CONTACT MODAL ───────────────────────────────────────── */
   function getModal() { return document.getElementById('contact-modal'); }
 
   window.openContactModal = function () {
@@ -311,6 +342,7 @@
 
   /* ── INIT ────────────────────────────────────────────────────── */
   document.addEventListener('DOMContentLoaded', function () {
+    initThemeToggle();
     initLangToggle();
     initIphoneScreenCycle();
     initShowcaseTabs();

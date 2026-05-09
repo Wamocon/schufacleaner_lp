@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="de" class="scroll-smooth">
+<html lang="de" class="scroll-smooth" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +14,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <!-- Anti-Flash: Theme vor erstem Paint setzen -->
+  <script>!function(){var t=localStorage.getItem('sc-theme')||'light';document.documentElement.setAttribute('data-theme',t);}();</script>
   <link rel="icon" type="image/png" href="favicon.png">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <style type="text/tailwindcss">
@@ -70,6 +72,18 @@
           <button id="lang-de" class="lang-btn active-lang" aria-label="Deutsch">DE</button>
           <button id="lang-en" class="lang-btn" aria-label="English">EN</button>
         </div>
+
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="theme-toggle hidden md:flex" aria-label="Farbschema wechseln" title="Hell/Dunkel">
+          <!-- Mond: im Hellmodus sichtbar → Klick wechselt zu Dunkel -->
+          <svg id="theme-icon-moon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+          </svg>
+          <!-- Sonne: im Dunkelm. sichtbar → Klick wechselt zu Hell -->
+          <svg id="theme-icon-sun" class="w-4 h-4" style="display:none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+        </button>
 
         <a href="https://schufacleaner.vercel.app/" target="_blank" rel="noopener" class="hidden md:inline-flex items-center bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-full font-semibold text-sm transition-all shadow-lg shadow-indigo-900/40 active:scale-95" data-de="Kostenlos starten" data-en="Start free">Kostenlos starten</a>
 
@@ -161,106 +175,149 @@
               <div class="iphone-island"></div>
               <div class="iphone-screen">
 
-                <!-- Screen 1: Dashboard -->
+                <!-- Screen 1: Dashboard (echte App-UI) -->
                 <div class="app-screen active screen-dashboard">
-                  <div class="flex items-center justify-between mb-1">
-                    <span class="screen-logo">SC</span>
-                    <div class="screen-avatar"></div>
-                  </div>
-                  <div class="kpi-grid">
-                    <div class="kpi-card">
-                      <div class="kpi-label">Einträge</div>
-                      <div class="kpi-value kpi-amber">12</div>
+                  <!-- App-Bar -->
+                  <div class="sc-app-bar">
+                    <div class="sc-app-logo">
+                      <div class="sc-logo-dot">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                      </div>
+                      <span class="sc-logo-text">SchufaCleaner</span>
                     </div>
-                    <div class="kpi-card">
-                      <div class="kpi-label">Fehler</div>
-                      <div class="kpi-value kpi-green">4</div>
-                    </div>
-                    <div class="kpi-card">
-                      <div class="kpi-label">Widersprüche</div>
-                      <div class="kpi-value kpi-blue">2</div>
-                    </div>
-                    <div class="kpi-card">
-                      <div class="kpi-label">Score-Klasse</div>
-                      <div class="kpi-value" style="color:#fff;">C</div>
-                    </div>
+                    <div class="sc-new-btn">+ Neue Analyse</div>
                   </div>
-                  <div style="font-size:7px;color:rgba(255,255,255,0.35);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin:4px 0 3px;">Aktuelle Einträge</div>
-                  <div class="request-list-item">
-                    <div class="req-avatar"></div>
-                    <div class="req-info"><div class="req-name"></div><div class="req-date"></div></div>
-                    <span class="req-badge badge-green">Bereinigt</span>
+                  <!-- Upgrade-Banner (Free-Nutzer) -->
+                  <div class="sc-upgrade-banner">
+                    <div class="sc-upgrade-text">Upgrade auf Pro – alle Fehler anzeigen</div>
+                    <div class="sc-upgrade-cta">Pro →</div>
                   </div>
-                  <div class="request-list-item">
-                    <div class="req-avatar" style="background:rgba(245,158,11,0.3);"></div>
-                    <div class="req-info"><div class="req-name"></div><div class="req-date"></div></div>
-                    <span class="req-badge badge-amber">Ausstehend</span>
-                  </div>
-                  <div class="request-list-item">
-                    <div class="req-avatar" style="background:rgba(99,102,241,0.35);"></div>
-                    <div class="req-info"><div class="req-name"></div><div class="req-date"></div></div>
-                    <span class="req-badge badge-blue">In Prüfung</span>
+                  <!-- Seitentitel -->
+                  <div class="sc-page-title">Meine Analysen</div>
+                  <!-- Scan-Liste -->
+                  <div class="sc-scan-list">
+                    <!-- Item 1: erledigt -->
+                    <div class="sc-scan-item">
+                      <div class="sc-scan-icon">
+                        <svg width="11" height="11" viewBox="0 0 20 20" fill="#2563eb"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>
+                      </div>
+                      <div class="sc-scan-info">
+                        <div class="sc-scan-name" style="width:80%;"></div>
+                        <div class="sc-scan-date" style="margin-top:3px;width:50%;"></div>
+                      </div>
+                      <div class="sc-badge sc-badge-green">Fertig · 3 Fehler</div>
+                    </div>
+                    <!-- Item 2: in Bearbeitung -->
+                    <div class="sc-scan-item">
+                      <div class="sc-scan-icon">
+                        <svg width="11" height="11" viewBox="0 0 20 20" fill="#2563eb"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>
+                      </div>
+                      <div class="sc-scan-info">
+                        <div class="sc-scan-name" style="width:65%;"></div>
+                        <div class="sc-scan-date" style="margin-top:3px;width:40%;"></div>
+                      </div>
+                      <div class="sc-badge sc-badge-blue">Analysiert…</div>
+                    </div>
+                    <!-- Item 3: ausstehend -->
+                    <div class="sc-scan-item">
+                      <div class="sc-scan-icon">
+                        <svg width="11" height="11" viewBox="0 0 20 20" fill="#2563eb"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>
+                      </div>
+                      <div class="sc-scan-info">
+                        <div class="sc-scan-name" style="width:70%;"></div>
+                        <div class="sc-scan-date" style="margin-top:3px;width:42%;"></div>
+                      </div>
+                      <div class="sc-badge sc-badge-yellow">Ausstehend</div>
+                    </div>
                   </div>
                 </div>
 
-                  <!-- Screen 2: Analyse Schritt 2/3 -->
-                <div class="app-screen screen-wizard">
-                  <div class="wizard-steps">
-                    <div class="wstep done"></div>
-                    <div class="wstep active"></div>
-                    <div class="wstep"></div>
+                <!-- Screen 2: Scan-Ergebnis / FindingCard -->
+                <div class="app-screen screen-result">
+                  <!-- Navigation Bar -->
+                  <div class="sc-result-bar">
+                    <div class="sc-back-arrow">←</div>
+                    <div class="sc-result-bar-title">Analyse-Ergebnis</div>
                   </div>
-                  <div class="wizard-title">SCHUFA-Analyse</div>
-                  <div class="wizard-sub">Schritt 2 von 3 – Einträge prüfen</div>
-                  <div class="form-field">
-                    <div class="field-label">Eintrag-Typ</div>
-                    <div class="field-value short" style="background:rgba(99,102,241,0.3);"></div>
-                  </div>
-                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-                    <div class="form-field">
-                      <div class="field-label">Datum</div>
-                      <div class="field-value"></div>
+                  <!-- Status-Karte -->
+                  <div class="sc-status-card">
+                    <div style="flex:1;min-width:0;">
+                      <div class="sc-status-filename"></div>
+                      <div class="sc-status-date"></div>
                     </div>
-                    <div class="form-field">
-                      <div class="field-label">Status</div>
-                      <div class="field-value"></div>
+                    <div class="sc-errors-count">
+                      <div class="sc-errors-num">3</div>
+                      <div class="sc-errors-label">Fehler gefunden</div>
                     </div>
                   </div>
-                  <div class="form-field">
-                    <div class="field-label">Gläubiger</div>
-                    <div class="field-value" style="width:80%;"></div>
+                  <!-- Pflicht-Disclaimer -->
+                  <div class="sc-disclaimer">⚠️ <strong>Pflicht-Hinweis:</strong> Dieses Dokument ersetzt keine Rechtsberatung durch einen zugelassenen Anwalt.</div>
+                  <!-- Finding 1: Hoch -->
+                  <div class="sc-finding-card high">
+                    <div class="sc-finding-header">
+                      <div class="sc-finding-type">Negativmerkmal · Inkasso</div>
+                      <div class="sc-finding-sev">HOCH</div>
+                    </div>
+                    <div class="sc-finding-expl"></div>
+                    <div class="sc-finding-expl2"></div>
+                    <div class="sc-finding-meta">
+                      <div class="sc-meta-item"><b>Rechtsgrundlage</b>DSGVO Art. 17</div>
+                      <div class="sc-meta-item"><b>Löschfrist seit</b>03/2020</div>
+                    </div>
                   </div>
-                  <div class="form-field">
-                    <div class="field-label">Bewertung KI</div>
-                    <div class="field-value"></div>
+                  <!-- Finding 2: Mittel -->
+                  <div class="sc-finding-card medium" style="margin-top:4px;">
+                    <div class="sc-finding-header">
+                      <div class="sc-finding-type sc-finding-medium-type">Anfrage Dritter</div>
+                      <div class="sc-finding-sev sc-finding-medium-sev">MITTEL</div>
+                    </div>
+                    <div class="sc-finding-expl" style="background:rgba(120,53,15,0.18);"></div>
+                    <div class="sc-finding-expl2" style="background:rgba(120,53,15,0.1);"></div>
                   </div>
-                  <div class="wizard-btn"><span class="wizard-btn-text">Widerspruch →</span></div>
+                  <!-- Brief-Button -->
+                  <div class="sc-letter-btn">📄 Widerspruchsbrief generieren</div>
                 </div>
 
-                  <!-- Screen 3: Fristen -->
-                <div class="app-screen screen-calendar">
-                  <div class="cal-header">
-                    <span class="cal-title">Fristen</span>
-                    <span class="cal-month">April 2026</span>
+                <!-- Screen 3: Upload / Neue Analyse -->
+                <div class="app-screen screen-upload">
+                  <!-- Navigation Bar -->
+                  <div class="sc-upload-bar">
+                    <div class="sc-back-arrow">←</div>
+                    <div class="sc-upload-title">Neue Analyse</div>
                   </div>
-                  <div class="cal-grid">
-                    <div class="cal-day-label">Mo</div><div class="cal-day-label">Di</div><div class="cal-day-label">Mi</div>
-                    <div class="cal-day-label">Do</div><div class="cal-day-label">Fr</div><div class="cal-day-label">Sa</div><div class="cal-day-label">So</div>
-                    <div class="cal-day empty">30</div><div class="cal-day">1</div><div class="cal-day">2</div>
-                    <div class="cal-day">3</div><div class="cal-day">4</div><div class="cal-day ev-amber">5</div><div class="cal-day ev-amber">6</div>
-                    <div class="cal-day ev-blue">7</div><div class="cal-day ev-blue">8</div><div class="cal-day ev-blue">9</div>
-                    <div class="cal-day ev-blue">10</div><div class="cal-day ev-blue">11</div><div class="cal-day">12</div><div class="cal-day">13</div>
-                    <div class="cal-day">14</div><div class="cal-day today-d">15</div><div class="cal-day ev-green">16</div>
-                    <div class="cal-day ev-green">17</div><div class="cal-day ev-green">18</div><div class="cal-day">19</div><div class="cal-day">20</div>
-                    <div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day">23</div>
-                    <div class="cal-day">24</div><div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div>
-                    <div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div>
-                    <div class="cal-day empty">1</div><div class="cal-day empty">2</div><div class="cal-day empty">3</div><div class="cal-day empty">4</div>
-                  </div>
-                  <div class="cal-legend">
-                    <div class="legend-item"><div class="leg-dot" style="background:#818cf8;"></div>Bereinigt</div>
-                    <div class="legend-item"><div class="leg-dot" style="background:#f59e0b;"></div>Ausstehend</div>
-                    <div class="legend-item"><div class="leg-dot" style="background:#10b981;"></div>In Prüfung</div>
+                  <!-- Body -->
+                  <div class="sc-upload-body">
+                    <div>
+                      <div class="sc-upload-heading">SCHUFA-PDF hochladen</div>
+                      <div class="sc-upload-sub">Datenkopie nach Art. 15 DSGVO</div>
+                    </div>
+                    <!-- Drop-Zone -->
+                    <div class="sc-dropzone">
+                      <div class="sc-dropzone-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6M12 9v6M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                      </div>
+                      <div class="sc-dropzone-main">PDF hier ablegen</div>
+                      <div class="sc-dropzone-sub">oder tippen zum Auswählen</div>
+                      <div class="sc-dropzone-tag">PDF · max. 10 MB</div>
+                    </div>
+                    <!-- Schritt-Anleitung -->
+                    <div class="sc-guide-card">
+                      <div class="sc-guide-title">So bekommst du dein PDF:</div>
+                      <div class="sc-guide-step">
+                        <div class="sc-step-num">1</div>
+                        <div class="sc-step-text"></div>
+                      </div>
+                      <div class="sc-guide-step">
+                        <div class="sc-step-num">2</div>
+                        <div class="sc-step-text" style="width:70%;"></div>
+                      </div>
+                      <div class="sc-guide-step">
+                        <div class="sc-step-num">3</div>
+                        <div class="sc-step-text" style="width:55%;"></div>
+                      </div>
+                    </div>
+                    <!-- Analyse-Button -->
+                    <div class="sc-letter-btn">Analyse starten →</div>
                   </div>
                 </div>
 
@@ -285,7 +342,7 @@
   </section>
 
   <!-- ═══ TRUST BAR – Marktdaten-Laufband ══════════════════════ -->
-  <section style="background:#0c1120;border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);" class="py-8 overflow-hidden">
+  <section id="trust-bar" style="background:#0c1120;border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);" class="py-8 overflow-hidden">
     <div class="max-w-7xl mx-auto px-5 mb-5">
       <p class="text-center text-white/25 text-xs font-semibold uppercase tracking-widest" data-de="Marktdaten · Quellen: Schufa Jahresbericht 2024 · Verbraucherzentrale 2024 · BRAK 2025" data-en="Market data · Sources: Schufa Annual Report 2024 · Verbraucherzentrale 2024 · BRAK 2025">Marktdaten · Quellen: Schufa Jahresbericht 2024 · Verbraucherzentrale 2024 · BRAK 2025</p>
     </div>
@@ -1108,7 +1165,7 @@
   </section>
 
   <!-- ═══ FINAL CTA ══════════════════════════════════════════════ -->
-  <section style="background:#070b14;" class="py-28 relative overflow-hidden">
+  <section id="footer-cta" style="background:#070b14;" class="py-28 relative overflow-hidden">
     <div class="orb w-[500px] h-[500px] bg-indigo-700/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
     <div class="max-w-4xl mx-auto px-5 text-center relative z-10 reveal">
       <div class="text-indigo-400 text-xs font-bold uppercase tracking-widest mb-5" data-de="Jetzt loslegen" data-en="Get started">Jetzt loslegen</div>
@@ -1128,7 +1185,7 @@
   </section>
 
   <!-- ═══ FOOTER ═════════════════════════════════════════════════ -->
-  <footer style="background:#04070d;border-top:1px solid rgba(255,255,255,0.06);" class="py-16">
+  <footer id="site-footer" style="background:#04070d;border-top:1px solid rgba(255,255,255,0.06);" class="py-16">
     <div class="max-w-7xl mx-auto px-5">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
         <!-- Brand -->
