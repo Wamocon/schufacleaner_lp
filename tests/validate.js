@@ -310,4 +310,4 @@ const status = failures === 0
 console.log(status);
 console.log('═'.repeat(52) + '\n');
 
-if (failures > 0) process.exit(1);
+if (failures > 0) process.exit(1);
