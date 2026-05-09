@@ -1,0 +1,1251 @@
+﻿<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SchufaCleaner – SCHUFA-Einträge prüfen &amp; löschen lassen.</title>
+  <meta name="description" content="SchufaCleaner analysiert Ihren SCHUFA-Bericht per KI, erkennt fehlerhafte oder veraltete Einträge und generiert rechtssichere Widerspruchsschreiben. DSGVO-konform, entwickelt in Deutschland.">
+  <meta name="theme-color" content="#070b14">
+  <meta property="og:title" content="SchufaCleaner – SCHUFA-Einträge prüfen &amp; löschen lassen.">
+  <meta property="og:description" content="KI-Analyse Ihres SCHUFA-Berichts, automatische Widerspruchsschreiben und Fristenverfolgung – alles in einer App.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-bg:          #f8fafc;
+      --color-bg-alt:      #f1f5f9;
+      --color-surface:     #ffffff;
+      --color-accent:      #6366f1;
+      --color-accent-dim:  #4f46e5;
+      --color-text-main:   #0f172a;
+      --color-muted:       #475569;
+      --color-faint:       #94a3b8;
+      --color-dark-bg:     #070b14;
+      --font-sans:    'Inter', system-ui, -apple-system, sans-serif;
+      --font-display: 'Outfit', sans-serif;
+    }
+    body { font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text-main); }
+    h1, h2, h3, h4, .font-display { font-family: var(--font-display); }
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="overflow-x-hidden antialiased">
+
+  <!-- ═══ NAVBAR ═══════════════════════════════════════════════ -->
+  <header id="nav" class="fixed top-0 left-0 right-0 z-[100] transition-all duration-300 py-4">
+    <div class="max-w-7xl mx-auto px-5 flex items-center justify-between gap-4">
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2.5 shrink-0">
+        <div class="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-900/40">
+          <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+          </svg>
+        </div>
+        <span class="text-xl font-black tracking-tight text-white font-display">SchufaCleaner</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-1 bg-white/6 backdrop-blur border border-white/10 rounded-full px-2 py-1.5">
+        <a href="#features" class="px-4 py-2 text-sm font-medium text-white/60 hover:text-white transition-colors rounded-full hover:bg-white/5" data-de="Features" data-en="Features">Features</a>
+        <a href="#how" class="px-4 py-2 text-sm font-medium text-white/60 hover:text-white transition-colors rounded-full hover:bg-white/5" data-de="Wie es funktioniert" data-en="How it works">Wie es funktioniert</a>
+        <a href="#showcase" class="px-4 py-2 text-sm font-medium text-white/60 hover:text-white transition-colors rounded-full hover:bg-white/5" data-de="App ansehen" data-en="See the App">App ansehen</a>
+        <a href="#roi" class="px-4 py-2 text-sm font-medium text-white/60 hover:text-white transition-colors rounded-full hover:bg-white/5" data-de="ROI Rechner" data-en="ROI Calculator">ROI Rechner</a>
+        <a href="#pricing" class="px-4 py-2 text-sm font-medium text-white/60 hover:text-white transition-colors rounded-full hover:bg-white/5" data-de="Preise" data-en="Pricing">Preise</a>
+      </nav>
+
+      <!-- Right side: Lang + CTA + mobile menu -->
+      <div class="flex items-center gap-3">
+        <!-- Language Toggle -->
+        <div class="lang-toggle hidden md:flex">
+          <button id="lang-de" class="lang-btn active-lang" aria-label="Deutsch">DE</button>
+          <button id="lang-en" class="lang-btn" aria-label="English">EN</button>
+        </div>
+
+        <a href="https://schufacleaner.vercel.app/" target="_blank" rel="noopener" class="hidden md:inline-flex items-center bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-full font-semibold text-sm transition-all shadow-lg shadow-indigo-900/40 active:scale-95" data-de="Kostenlos starten" data-en="Start free">Kostenlos starten</a>
+
+        <!-- Mobile hamburger -->
+        <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-2" aria-expanded="false" aria-label="Menü">
+          <span class="w-5 h-0.5 bg-white/70 rounded"></span>
+          <span class="w-5 h-0.5 bg-white/70 rounded"></span>
+          <span class="w-5 h-0.5 bg-white/70 rounded"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Dropdown -->
+    <div id="mobile-nav" class="hidden md:hidden mt-2 mx-4 bg-slate-900/95 backdrop-blur border border-white/10 rounded-2xl p-4">
+      <div class="flex flex-col gap-1">
+        <a href="#features" class="px-4 py-3 text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-colors" data-de="Features" data-en="Features">Features</a>
+        <a href="#how" class="px-4 py-3 text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-colors" data-de="Wie es funktioniert" data-en="How it works">Wie es funktioniert</a>
+        <a href="#showcase" class="px-4 py-3 text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-colors" data-de="App ansehen" data-en="See the App">App ansehen</a>
+        <a href="#roi" class="px-4 py-3 text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-colors" data-de="ROI Rechner" data-en="ROI Calculator">ROI Rechner</a>
+        <a href="#pricing" class="px-4 py-3 text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-colors" data-de="Preise" data-en="Pricing">Preise</a>
+        <hr class="border-white/10 my-2">
+        <div class="lang-toggle mx-4 mb-2 w-fit">
+          <button id="lang-de-m" class="lang-btn active-lang" aria-label="Deutsch">DE</button>
+          <button id="lang-en-m" class="lang-btn" aria-label="English">EN</button>
+        </div>
+        <a href="https://schufacleaner.vercel.app/" target="_blank" rel="noopener" class="bg-indigo-600 text-white px-4 py-3 rounded-xl font-semibold text-sm text-center transition-all" data-de="Kostenlos starten" data-en="Start free">Kostenlos starten</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ HERO ══════════════════════════════════════════════════ -->
+  <section id="hero" class="relative min-h-screen flex items-center overflow-hidden" style="background:#070b14;">
+    <!-- Glow Orbs -->
+    <div class="orb w-[600px] h-[600px] bg-indigo-600/25 -top-32 -left-32"></div>
+    <div class="orb w-[500px] h-[500px] bg-violet-600/15 bottom-0 right-0" style="animation-delay:3s;"></div>
+
+    <div class="max-w-7xl mx-auto px-5 pt-28 pb-20 w-full">
+      <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
+
+        <!-- Left: Text -->
+        <div class="flex-1 text-center lg:text-left">
+          <!-- Badge -->
+          <div class="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/20 px-4 py-2 rounded-full mb-8 reveal">
+            <span class="flex h-2 w-2 rounded-full bg-indigo-400 animate-ping"></span>
+            <span class="text-indigo-300 text-xs font-bold uppercase tracking-widest" data-de="Neu: KI-gestützte SCHUFA-Analyse" data-en="New: AI-powered SCHUFA Analysis">Neu: KI-gestützte SCHUFA-Analyse</span>
+          </div>
+
+          <h1 class="text-5xl md:text-6xl xl:text-7xl font-black text-white mb-6 tracking-tight font-display leading-[1.05] reveal">
+            <span data-de="SCHUFA-Einträge." data-en="SCHUFA entries.">SCHUFA-Einträge.</span><br>
+            <span class="gradient-text" data-de="Endlich bereinigt." data-en="Finally removed.">Endlich bereinigt.</span>
+          </h1>
+
+          <p class="text-lg text-white/50 mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0 reveal" data-de="SchufaCleaner analysiert Ihren SCHUFA-Bericht per KI, erkennt fehlerhafte oder veraltete Einträge und generiert rechtssichere Widerspruchsschreiben nach DSGVO Art. 16/17. Kein Anwalt, kein Papierchaos." data-en="SchufaCleaner uses AI to analyse your SCHUFA report, identifies incorrect or outdated entries, and generates legally sound dispute letters under GDPR Art. 16/17. No lawyer, no paperwork chaos.">
+            SchufaCleaner analysiert Ihren SCHUFA-Bericht per KI, erkennt fehlerhafte oder veraltete Einträge und generiert rechtssichere Widerspruchsschreiben nach DSGVO Art. 16/17. Kein Anwalt, kein Papierchaos.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 justify-center lg:justify-start reveal">
+            <a href="https://schufacleaner.vercel.app/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-7 py-4 rounded-2xl font-bold text-base transition-all shadow-xl shadow-indigo-900/40 active:scale-95">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <span data-de="Kostenlos starten" data-en="Start free">Kostenlos starten</span>
+            </a>
+            <a href="#showcase" class="inline-flex items-center gap-2 border border-white/15 hover:border-white/30 text-white/75 hover:text-white px-7 py-4 rounded-2xl font-bold text-base transition-all">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              <span data-de="App ansehen" data-en="See the app">App ansehen</span>
+            </a>
+          </div>
+
+          <!-- Trust indicators -->
+          <div class="mt-10 flex flex-wrap items-center gap-5 justify-center lg:justify-start reveal">
+            <div class="flex items-center gap-2 text-white/35 text-xs font-medium">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              <span data-de="DSGVO-konform" data-en="GDPR compliant">DSGVO-konform</span>
+            </div>
+            <div class="flex items-center gap-2 text-white/35 text-xs font-medium">
+              <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6H8l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/></svg>
+              <span data-de="Entwickelt in Deutschland" data-en="Made in Germany">Entwickelt in Deutschland</span>
+            </div>
+            <div class="flex items-center gap-2 text-white/35 text-xs font-medium">
+              <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span data-de="Einrichtung in &lt; 5 Min." data-en="Ready in &lt; 5 min.">Einrichtung in &lt; 5 Min.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: iPhone 15 Pro Titanium -->
+        <div class="flex-shrink-0 reveal flex flex-col items-center gap-6">
+          <div class="iphone-frame">
+            <div class="iphone-inner">
+              <div class="iphone-island"></div>
+              <div class="iphone-screen">
+
+                <!-- Screen 1: Dashboard -->
+                <div class="app-screen active screen-dashboard">
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="screen-logo">SC</span>
+                    <div class="screen-avatar"></div>
+                  </div>
+                  <div class="kpi-grid">
+                    <div class="kpi-card">
+                      <div class="kpi-label">Einträge</div>
+                      <div class="kpi-value kpi-amber">12</div>
+                    </div>
+                    <div class="kpi-card">
+                      <div class="kpi-label">Fehler</div>
+                      <div class="kpi-value kpi-green">4</div>
+                    </div>
+                    <div class="kpi-card">
+                      <div class="kpi-label">Widersprüche</div>
+                      <div class="kpi-value kpi-blue">2</div>
+                    </div>
+                    <div class="kpi-card">
+                      <div class="kpi-label">Score-Klasse</div>
+                      <div class="kpi-value" style="color:#fff;">C</div>
+                    </div>
+                  </div>
+                  <div style="font-size:7px;color:rgba(255,255,255,0.35);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin:4px 0 3px;">Aktuelle Einträge</div>
+                  <div class="request-list-item">
+                    <div class="req-avatar"></div>
+                    <div class="req-info"><div class="req-name"></div><div class="req-date"></div></div>
+                    <span class="req-badge badge-green">Bereinigt</span>
+                  </div>
+                  <div class="request-list-item">
+                    <div class="req-avatar" style="background:rgba(245,158,11,0.3);"></div>
+                    <div class="req-info"><div class="req-name"></div><div class="req-date"></div></div>
+                    <span class="req-badge badge-amber">Ausstehend</span>
+                  </div>
+                  <div class="request-list-item">
+                    <div class="req-avatar" style="background:rgba(99,102,241,0.35);"></div>
+                    <div class="req-info"><div class="req-name"></div><div class="req-date"></div></div>
+                    <span class="req-badge badge-blue">In Prüfung</span>
+                  </div>
+                </div>
+
+                  <!-- Screen 2: Analyse Schritt 2/3 -->
+                <div class="app-screen screen-wizard">
+                  <div class="wizard-steps">
+                    <div class="wstep done"></div>
+                    <div class="wstep active"></div>
+                    <div class="wstep"></div>
+                  </div>
+                  <div class="wizard-title">SCHUFA-Analyse</div>
+                  <div class="wizard-sub">Schritt 2 von 3 – Einträge prüfen</div>
+                  <div class="form-field">
+                    <div class="field-label">Eintrag-Typ</div>
+                    <div class="field-value short" style="background:rgba(99,102,241,0.3);"></div>
+                  </div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+                    <div class="form-field">
+                      <div class="field-label">Datum</div>
+                      <div class="field-value"></div>
+                    </div>
+                    <div class="form-field">
+                      <div class="field-label">Status</div>
+                      <div class="field-value"></div>
+                    </div>
+                  </div>
+                  <div class="form-field">
+                    <div class="field-label">Gläubiger</div>
+                    <div class="field-value" style="width:80%;"></div>
+                  </div>
+                  <div class="form-field">
+                    <div class="field-label">Bewertung KI</div>
+                    <div class="field-value"></div>
+                  </div>
+                  <div class="wizard-btn"><span class="wizard-btn-text">Widerspruch →</span></div>
+                </div>
+
+                  <!-- Screen 3: Fristen -->
+                <div class="app-screen screen-calendar">
+                  <div class="cal-header">
+                    <span class="cal-title">Fristen</span>
+                    <span class="cal-month">April 2026</span>
+                  </div>
+                  <div class="cal-grid">
+                    <div class="cal-day-label">Mo</div><div class="cal-day-label">Di</div><div class="cal-day-label">Mi</div>
+                    <div class="cal-day-label">Do</div><div class="cal-day-label">Fr</div><div class="cal-day-label">Sa</div><div class="cal-day-label">So</div>
+                    <div class="cal-day empty">30</div><div class="cal-day">1</div><div class="cal-day">2</div>
+                    <div class="cal-day">3</div><div class="cal-day">4</div><div class="cal-day ev-amber">5</div><div class="cal-day ev-amber">6</div>
+                    <div class="cal-day ev-blue">7</div><div class="cal-day ev-blue">8</div><div class="cal-day ev-blue">9</div>
+                    <div class="cal-day ev-blue">10</div><div class="cal-day ev-blue">11</div><div class="cal-day">12</div><div class="cal-day">13</div>
+                    <div class="cal-day">14</div><div class="cal-day today-d">15</div><div class="cal-day ev-green">16</div>
+                    <div class="cal-day ev-green">17</div><div class="cal-day ev-green">18</div><div class="cal-day">19</div><div class="cal-day">20</div>
+                    <div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day">23</div>
+                    <div class="cal-day">24</div><div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div>
+                    <div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div>
+                    <div class="cal-day empty">1</div><div class="cal-day empty">2</div><div class="cal-day empty">3</div><div class="cal-day empty">4</div>
+                  </div>
+                  <div class="cal-legend">
+                    <div class="legend-item"><div class="leg-dot" style="background:#818cf8;"></div>Bereinigt</div>
+                    <div class="legend-item"><div class="leg-dot" style="background:#f59e0b;"></div>Ausstehend</div>
+                    <div class="legend-item"><div class="leg-dot" style="background:#10b981;"></div>In Prüfung</div>
+                  </div>
+                </div>
+
+              </div><!-- /iphone-screen -->
+            </div><!-- /iphone-inner -->
+          </div><!-- /iphone-frame -->
+
+          <!-- Floating notification -->
+          <div class="toast-animate flex items-center gap-3 bg-slate-800/90 backdrop-blur border border-white/10 px-4 py-3 rounded-2xl shadow-2xl text-sm text-white" style="max-width:230px;">
+            <div class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <div>
+              <div class="font-semibold text-xs" data-de="Widerspruch vorbereitet" data-en="Dispute prepared">Widerspruch vorbereitet</div>
+              <div class="text-white/40 text-[10px]" data-de="Brief wird generiert …" data-en="Letter is being generated …">Brief wird generiert …</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TRUST BAR ═════════════════════════════════════════════ -->
+  <section style="background:#0c1120;border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);" class="py-8 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-5 mb-5">
+      <p class="text-center text-white/25 text-xs font-semibold uppercase tracking-widest" data-de="Rechtlich geprüft &amp; zertifiziert" data-en="Legally verified &amp; certified">Rechtlich geprüft &amp; zertifiziert</p>
+    </div>
+    <div class="relative overflow-hidden">
+      <div class="marquee-track" style="width:max-content;">
+        <!-- Set 1 -->
+        <div class="trust-logo">
+          <svg width="18" height="18" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1h9.5v9.5H1z" fill="#f25022"/><path d="M12.5 1H22v9.5h-9.5z" fill="#7fba00"/><path d="M1 12.5h9.5V22H1z" fill="#00a4ef"/><path d="M12.5 12.5H22V22h-9.5z" fill="#ffb900"/></svg>
+          <span style="font-size:.875rem;font-weight:600;color:rgba(255,255,255,0.65);">Microsoft 365</span>
+        </div>
+        <div class="trust-logo">
+          <svg width="18" height="18" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fill="#4285F4" d="M43.6 20.5H42V20H24v8h11.3C33.9 32.3 29.4 35 24 35c-6.1 0-11-4.9-11-11s4.9-11 11-11c2.8 0 5.3 1 7.2 2.7l5.7-5.7C33.9 7.2 29.2 5 24 5 13 5 4 14 4 25s9 20 20 20c11 0 20-9 20-20 0-1.2-.1-2.5-.4-4.5z"/><path fill="#34A853" d="M6.3 15.7l6.6 4.8C14.5 17 19 14 24 14c2.8 0 5.3 1 7.2 2.7l5.7-5.7C33.9 7.2 29.2 5 24 5c-7.7 0-14.3 4.5-17.7 10.7z"/><path fill="#FBBC05" d="M24 45c5.2 0 9.9-2 13.4-5.2l-6.2-5.2A12 12 0 0124 36c-5.4 0-9.9-2.7-11.3-6.5l-6.6 4.8C9.7 40.5 16.3 45 24 45z"/><path fill="#EA4335" d="M43.6 20.5H42V20H24v8h11.3C34.9 30.8 33 32.7 30.8 34l6.2 5.2C41 35.5 44 30.7 44 25c0-1.5-.2-2.9-.4-4.5z"/></svg>
+          <span style="font-size:.875rem;font-weight:600;color:rgba(255,255,255,0.65);">Google Workspace</span>
+        </div>
+        <div class="trust-logo">
+          <svg width="18" height="18" viewBox="0 0 109 113" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M63.7 0H44.3l-8 22.6 27.4 0L63.7 0z" fill="#3ECF8E"/><path d="M0 71.2l9.4 26.6 23.3-13.3L0 71.2z" fill="#3ECF8E" opacity=".7"/><path d="M109 71.2l-32.7 13.3 23.3 13.3L109 71.2z" fill="#3ECF8E" opacity=".5"/><ellipse cx="54.1" cy="63.1" rx="28.3" ry="28.3" fill="#3ECF8E"/></svg>
+          <span style="font-size:.875rem;font-weight:600;color:rgba(255,255,255,0.65);">Supabase</span>
+        </div>
+        <div class="trust-logo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="#10b981"/></svg>
+          <span style="font-size:.875rem;font-weight:600;color:rgba(255,255,255,0.65);" data-de="DSGVO-konform" data-en="GDPR compliant">DSGVO-konform</span>
+        </div>
+        <div class="trust-logo">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          <span style="font-size:.875rem;font-weight:600;color:rgba(255,255,255,0.65);" data-de="Entwickelt in Deutschland" data-en="Made in Germany">Entwickelt in Deutschland</span>
+        </div>
+        <div class="trust-logo">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span style="font-size:.875rem;font-weight:600;color:rgba(255,255,255,0.65);">OAuth2 E-Mail</span>
+        </div>
+        <!-- Set 2 (duplicate for seamless loop) -->
+        <div class="trust-logo">
+          <svg width="18" height="18" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1h9.5v9.5H1z" fill="#f25022"/><path d="M12.5 1H22v9.5h-9.5z" fill="#7fba00"/><path d="M1 12.5h9.5V22H1z" fill="#00a4ef"/><path d="M12.5 12.5H22V22h-9.5z" fill="#ffb900"/></svg>
+          <span style="font-size:.875rem;font-weight:600;color:rgba(255,255,255,0.65);">Microsoft 365</span>
+        </div>
+        <div class="trust-logo">
+          <svg width="18" height="18" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fill="#4285F4" d="M43.6 20.5H42V20H24v8h11.3C33.9 32.3 29.4 35 24 35c-6.1 0-11-4.9-11-11s4.9-11 11-11c2.8 0 5.3 1 7.2 2.7l5.7-5.7C33.9 7.2 29.2 5 24 5 13 5 4 14 4 25s9 20 20 20c11 0 20-9 20-20 0-1.2-.1-2.5-.4-4.5z"/><path fill="#34A853" d="M6.3 15.7l6.6 4.8C14.5 17 19 14 24 14c2.8 0 5.3 1 7.2 2.7l5.7-5.7C33.9 7.2 29.2 5 24 5c-7.7 0-14.3 4.5-17.7 10.7z"/><path fill="#FBBC05" d="M24 45c5.2 0 9.9-2 13.4-5.2l-6.2-5.2A12 12 0 0124 36c-5.4 0-9.9-2.7-11.3-6.5l-6.6 4.8C9.7 40.5 16.3 45 24 45z"/><path fill="#EA4335" d="M43.6 20.5H42V20H24v8h11.3C34.9 30.8 33 32.7 30.8 34l6.2 5.2C41 35.5 44 30.7 44 25c0-1.5-.2-2.9-.4-4.5z"/></svg>
+          <span style="font-size:.875rem;font-weight:600;color:rgba(255,255,255,0.65);">Google Workspace</span>
+        </div>
+        <div class="trust-logo">
+          <svg width="18" height="18" viewBox="0 0 109 113" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M63.7 0H44.3l-8 22.6 27.4 0L63.7 0z" fill="#3ECF8E"/><path d="M0 71.2l9.4 26.6 23.3-13.3L0 71.2z" fill="#3ECF8E" opacity=".7"/><path d="M109 71.2l-32.7 13.3 23.3 13.3L109 71.2z" fill="#3ECF8E" opacity=".5"/><ellipse cx="54.1" cy="63.1" rx="28.3" ry="28.3" fill="#3ECF8E"/></svg>
+          <span style="font-size:.875rem;font-weight:600;color:rgba(255,255,255,0.65);">Supabase</span>
+        </div>
+        <div class="trust-logo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="#10b981"/></svg>
+          <span style="font-size:.875rem;font-weight:600;color:rgba(255,255,255,0.65);" data-de="DSGVO-konform" data-en="GDPR compliant">DSGVO-konform</span>
+        </div>
+        <div class="trust-logo">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          <span style="font-size:.875rem;font-weight:600;color:rgba(255,255,255,0.65);" data-de="Entwickelt in Deutschland" data-en="Made in Germany">Entwickelt in Deutschland</span>
+        </div>
+        <div class="trust-logo">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span style="font-size:.875rem;font-weight:600;color:rgba(255,255,255,0.65);">OAuth2 E-Mail</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HOW IT WORKS ═════════════════════════════════════════ -->
+  <section id="how" class="py-28" style="background:#f8fafc;">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="text-center mb-16 reveal">
+        <div class="section-chip mb-5" data-de="So funktioniert's" data-en="How it works">So funktioniert's</div>
+        <h2 class="text-4xl md:text-5xl font-black text-slate-900 font-display tracking-tight mb-4" data-de="Drei Schritte. Saubere Akte." data-en="Three steps. Clean record.">Drei Schritte. Saubere Akte.</h2>
+        <p class="text-slate-500 text-lg max-w-xl mx-auto" data-de="Von der SCHUFA-Analyse bis zum fertigen Widerspruchsbrief – vollständig automatisiert." data-en="From SCHUFA analysis to finished dispute letter – fully automated.">Von der SCHUFA-Analyse bis zum fertigen Widerspruchsbrief – vollständig automatisiert.</p>
+      </div>
+
+      <div class="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-0 justify-center">
+        <!-- Step 1 -->
+        <div class="flex-1 flex flex-col items-center text-center px-6 reveal">
+          <div class="w-16 h-16 rounded-2xl bg-indigo-600 flex items-center justify-center mb-5 shadow-lg shadow-indigo-200">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 font-black text-sm flex items-center justify-center mb-3">1</div>
+          <h3 class="font-bold text-slate-900 text-xl mb-2" data-de="SCHUFA-Bericht hochladen" data-en="Upload SCHUFA report">SCHUFA-Bericht hochladen</h3>
+          <p class="text-slate-500 text-sm leading-relaxed" data-de="PDF-Bericht von SCHUFA sicher hochladen – die KI analysiert automatisch alle Einträge, Datum und Relevanz." data-en="Securely upload your PDF report from SCHUFA – the AI automatically analyses all entries, dates and relevance.">PDF-Bericht von SCHUFA sicher hochladen – die KI analysiert automatisch alle Einträge, Datum und Relevanz.</p>
+        </div>
+
+        <div class="step-connector hidden md:block"></div>
+
+        <!-- Step 2 -->
+        <div class="flex-1 flex flex-col items-center text-center px-6 reveal">
+          <div class="w-16 h-16 rounded-2xl bg-violet-600 flex items-center justify-center mb-5 shadow-lg shadow-violet-200">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-violet-100 text-violet-700 font-black text-sm flex items-center justify-center mb-3">2</div>
+          <h3 class="font-bold text-slate-900 text-xl mb-2" data-de="KI erkennt Fehler &amp; Veraltetes" data-en="AI detects errors &amp; outdated entries">KI erkennt Fehler &amp; Veraltetes</h3>
+          <p class="text-slate-500 text-sm leading-relaxed" data-de="Die KI prüft jeden Eintrag auf Löschfristen nach BDSG und DSGVO, falsche Datierungen und unberechtigte Negativ-Einträge." data-en="The AI checks each entry for deletion deadlines under BDSG and GDPR, incorrect dates and unauthorised negative entries.">Die KI prüft jeden Eintrag auf Löschfristen nach BDSG und DSGVO, falsche Datierungen und unberechtigte Negativ-Einträge.</p>
+        </div>
+
+        <div class="step-connector hidden md:block"></div>
+
+        <!-- Step 3 -->
+        <div class="flex-1 flex flex-col items-center text-center px-6 reveal">
+          <div class="w-16 h-16 rounded-2xl bg-emerald-600 flex items-center justify-center mb-5 shadow-lg shadow-emerald-200">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 font-black text-sm flex items-center justify-center mb-3">3</div>
+          <h3 class="font-bold text-slate-900 text-xl mb-2" data-de="Widerspruch wird generiert" data-en="Dispute letter generated">Widerspruch wird generiert</h3>
+          <p class="text-slate-500 text-sm leading-relaxed" data-de="SchufaCleaner erstellt rechtssichere Widerspruchsschreiben nach DSGVO Art. 16/17 und BDSG – direkt versandfertig als PDF." data-en="SchufaCleaner creates legally sound dispute letters under GDPR Art. 16/17 and BDSG – ready to send as PDF.">SchufaCleaner erstellt rechtssichere Widerspruchsschreiben nach DSGVO Art. 16/17 und BDSG – direkt versandfertig als PDF.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HAUPTFUNKTIONEN (BENTO GRID) ═════════════════════════ -->
+  <section id="features" class="py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="text-center mb-16 reveal">
+        <div class="section-chip mb-5" data-de="Kernfunktionen" data-en="Core features">Kernfunktionen</div>
+        <h2 class="text-4xl md:text-5xl font-black text-slate-900 font-display tracking-tight mb-4" data-de="Was SchufaCleaner wirklich kann." data-en="What SchufaCleaner really does.">Was SchufaCleaner wirklich kann.</h2>
+        <p class="text-slate-500 text-lg max-w-xl mx-auto" data-de="Echte Funktionen aus der App – keine Marketingversprechen." data-en="Real features from the app – no marketing promises.">Echte Funktionen aus der App – keine Marketingversprechen.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- CARD 1: Antragstellung (large, 2-col) -->
+        <div class="bento-card lg:col-span-2 p-8 reveal">
+          <div class="flex flex-col h-full">
+            <div class="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center mb-5 shadow-lg shadow-indigo-100">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-900 mb-2" data-de="KI-Analyse Ihres SCHUFA-Berichts" data-en="AI analysis of your SCHUFA report">KI-Analyse Ihres SCHUFA-Berichts</h3>
+            <p class="text-slate-500 mb-6" data-de="Laden Sie Ihren SCHUFA-PDF-Bericht hoch – die KI analysiert alle Einträge, identifiziert Löschfristen nach BDSG/DSGVO, fehlerhafte Datierungen und unberechtigte Negativ-Einträge automatisch." data-en="Upload your SCHUFA PDF report – the AI analyses all entries, identifies deletion deadlines under BDSG/GDPR, incorrect dates and unauthorised negative entries automatically.">Laden Sie Ihren SCHUFA-PDF-Bericht hoch – die KI analysiert alle Einträge, identifiziert Löschfristen nach BDSG/DSGVO, fehlerhafte Datierungen und unberechtigte Negativ-Einträge automatisch.</p>
+            <!-- Analysis Mockup -->
+            <div class="mt-auto bg-slate-50 rounded-2xl p-5 border border-slate-100">
+              <div class="flex gap-2 mb-4">
+                <div class="flex-1 h-1.5 rounded-full bg-indigo-600"></div>
+                <div class="flex-1 h-1.5 rounded-full bg-indigo-400"></div>
+                <div class="flex-1 h-1.5 rounded-full bg-slate-200"></div>
+              </div>
+              <div class="text-xs font-semibold text-indigo-600 mb-3" data-de="Schritt 2 von 3 – Einträge prüfen" data-en="Step 2 of 3 – Review entries">Schritt 2 von 3 – Einträge prüfen</div>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="bg-white rounded-xl p-3 border border-slate-200">
+                  <div class="text-[10px] text-slate-400 font-semibold uppercase tracking-wide mb-1.5" data-de="Eintrag-Typ" data-en="Entry type">Eintrag-Typ</div>
+                  <div class="text-sm font-bold text-indigo-600">Negativmerkmal</div>
+                </div>
+                <div class="bg-white rounded-xl p-3 border border-slate-200">
+                  <div class="text-[10px] text-slate-400 font-semibold uppercase tracking-wide mb-1.5" data-de="KI-Bewertung" data-en="AI assessment">KI-Bewertung</div>
+                  <div class="text-sm font-bold text-emerald-600" data-de="Anfechtbar" data-en="Contestable">Anfechtbar</div>
+                </div>
+                <div class="bg-white rounded-xl p-3 border border-slate-200">
+                  <div class="text-[10px] text-slate-400 font-semibold uppercase tracking-wide mb-1.5" data-de="Eingetragen seit" data-en="Registered since">Eingetragen seit</div>
+                  <div class="text-sm font-semibold text-slate-700">03.2020</div>
+                </div>
+                <div class="bg-white rounded-xl p-3 border border-slate-200">
+                  <div class="text-[10px] text-slate-400 font-semibold uppercase tracking-wide mb-1.5" data-de="Löschfrist" data-en="Deletion deadline">Löschfrist</div>
+                  <div class="text-sm font-semibold text-red-500" data-de="Überschritten" data-en="Exceeded">Überschritten</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2: E-Mail Versand -->
+        <div class="bento-card p-8 reveal">
+          <div class="w-12 h-12 rounded-2xl bg-violet-600 flex items-center justify-center mb-5 shadow-lg shadow-violet-100">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-2" data-de="Automatische Widerspruchsschreiben" data-en="Automatic dispute letters">Automatische Widerspruchsschreiben</h3>
+          <p class="text-slate-500 text-sm mb-5" data-de="SchufaCleaner generiert rechtssichere Widerspruchsschreiben nach DSGVO Art. 16/17 und BDSG – individuell, versandfertig als PDF und sofort herunterladbar." data-en="SchufaCleaner generates legally sound dispute letters under GDPR Art. 16/17 and BDSG – individual, ready-to-send as PDF and immediately downloadable.">SchufaCleaner generiert rechtssichere Widerspruchsschreiben nach DSGVO Art. 16/17 und BDSG – individuell, versandfertig als PDF.</p>
+          <!-- Dispute letter mockup -->
+          <div class="space-y-2.5 mt-auto">
+            <div class="flex items-center gap-3 bg-slate-50 rounded-xl p-3 border border-slate-200">
+              <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <span class="text-xs font-semibold text-slate-600">Widerspruch_Eintrag_03.pdf</span>
+              <div class="ml-auto flex items-center gap-1.5">
+                <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                <span class="text-[10px] font-bold text-emerald-600" data-de="Bereit" data-en="Ready">Bereit</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 bg-slate-50 rounded-xl p-3 border border-slate-200">
+              <svg class="w-4 h-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <span class="text-xs font-semibold text-slate-600">Widerspruch_Eintrag_07.pdf</span>
+              <div class="ml-auto flex items-center gap-1.5">
+                <div class="w-2 h-2 rounded-full bg-slate-300"></div>
+                <span class="text-[10px] font-semibold text-slate-400" data-de="Entwurf" data-en="Draft">Entwurf</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 mt-2 px-1">
+              <svg class="w-4 h-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+              <span class="text-[11px] text-slate-400" data-de="Versandfertig als PDF-Download" data-en="Ready to send as PDF download">Versandfertig als PDF-Download</span>
+            </div>
+          </div>
+          <!-- OAuth connect UI mockup -->
+          <div class="space-y-2.5 mt-auto">
+            <div class="flex items-center gap-3 bg-slate-50 rounded-xl p-3 border border-slate-200">
+              <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#4285F4" d="M43.6 20.5H42V20H24v8h11.3C33.9 32.3 29.4 35 24 35c-6.1 0-11-4.9-11-11s4.9-11 11-11c2.8 0 5.3 1 7.2 2.7l5.7-5.7C33.9 7.2 29.2 5 24 5 13 5 4 14 4 25s9 20 20 20c11 0 20-9 20-20 0-1.2-.1-2.5-.4-4.5z"/><path fill="#34A853" d="M6.3 15.7l6.6 4.8C14.5 17 19 14 24 14c2.8 0 5.3 1 7.2 2.7l5.7-5.7C33.9 7.2 29.2 5 24 5c-7.7 0-14.3 4.5-17.7 10.7z"/><path fill="#FBBC05" d="M24 45c5.2 0 9.9-2 13.4-5.2l-6.2-5.2A12 12 0 0124 36c-5.4 0-9.9-2.7-11.3-6.5l-6.6 4.8C9.7 40.5 16.3 45 24 45z"/><path fill="#EA4335" d="M43.6 20.5H42V20H24v8h11.3C34.9 30.8 33 32.7 30.8 34l6.2 5.2C41 35.5 44 30.7 44 25c0-1.5-.2-2.9-.4-4.5z"/></svg>
+              <span class="text-xs font-semibold text-slate-600">Gmail / Google Workspace</span>
+              <div class="ml-auto flex items-center gap-1.5">
+                <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                <span class="text-[10px] font-bold text-emerald-600" data-de="Verbunden" data-en="Connected">Verbunden</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 bg-slate-50 rounded-xl p-3 border border-slate-200">
+              <svg width="16" height="16" viewBox="0 0 23 23" fill="none"><path d="M1 1h9.5v9.5H1z" fill="#f25022"/><path d="M12.5 1H22v9.5h-9.5z" fill="#7fba00"/><path d="M1 12.5h9.5V22H1z" fill="#00a4ef"/><path d="M12.5 12.5H22V22h-9.5z" fill="#ffb900"/></svg>
+              <span class="text-xs font-semibold text-slate-600">Microsoft 365 / Outlook</span>
+              <div class="ml-auto flex items-center gap-1.5">
+                <div class="w-2 h-2 rounded-full bg-slate-300"></div>
+                <span class="text-[10px] font-semibold text-slate-400" data-de="Verbinden" data-en="Connect">Verbinden</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 mt-2 px-1">
+              <svg class="w-4 h-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+              <span class="text-[11px] text-slate-400" data-de="Antrag wird als PDF-Anhang versendet" data-en="Request is sent as PDF attachment">Antrag wird als PDF-Anhang versendet</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3: Eigene Vorlagen -->
+        <div class="bento-card p-8 reveal">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500 flex items-center justify-center mb-5 shadow-lg shadow-amber-100">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-2" data-de="DSGVO-Rechte &amp; Fristen-Info" data-en="GDPR rights &amp; deadline info">DSGVO-Rechte &amp; Fristen-Info</h3>
+          <p class="text-slate-500 text-sm mb-5" data-de="SchufaCleaner erklärt automatisch, welche BDSG-Löschfristen gelten, welche Einträge bestreitbar sind und welche Rechte Sie nach DSGVO Art. 16/17 haben – klar und verständlich." data-en="SchufaCleaner automatically explains which BDSG deletion deadlines apply, which entries are contestable and what rights you have under GDPR Art. 16/17 – clearly and comprehensibly.">SchufaCleaner erklärt automatisch Ihre BDSG-Löschfristen, anfechtbare Einträge und DSGVO-Rechte nach Art. 16/17 – klar und verständlich.</p>
+          <!-- DSGVO rights mockup -->
+          <div class="mt-auto">
+            <div class="flex items-center gap-4 bg-indigo-50 border-2 border-indigo-200 rounded-2xl p-4">
+              <div class="w-12 h-14 bg-white border border-indigo-200 rounded-lg shadow-sm flex flex-col items-center justify-center gap-1">
+                <svg class="w-6 h-6 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                <span class="text-[8px] font-black text-indigo-600">DSGVO</span>
+              </div>
+              <div>
+                <div class="font-bold text-sm text-slate-800" data-de="Ihre Rechte nach DSGVO" data-en="Your rights under GDPR">Ihre Rechte nach DSGVO</div>
+                <div class="text-xs text-slate-500 mt-0.5" data-de="Art. 16 Berichtigung · Art. 17 Löschung" data-en="Art. 16 Rectification · Art. 17 Erasure">Art. 16 Berichtigung · Art. 17 Löschung</div>
+                <div class="flex gap-1 mt-2">
+                  <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700" data-de="Fristen automatisch berechnet" data-en="Deadlines automatically calculated">Fristen automatisch berechnet</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- AcroForm-PDF mockup -->
+          <div class="mt-auto">
+            <div class="flex items-center gap-4 bg-red-50 border-2 border-red-200 rounded-2xl p-4">
+              <div class="w-12 h-14 bg-white border border-red-200 rounded-lg shadow-sm flex flex-col items-center justify-center gap-1">
+                <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                <span class="text-[8px] font-black text-red-600">PDF</span>
+              </div>
+              <div>
+                <div class="font-bold text-sm text-slate-800" data-de="AcroForm-PDF" data-en="AcroForm PDF">AcroForm-PDF</div>
+                <div class="text-xs text-slate-500 mt-0.5" data-de="Direkte Feldzuweisung · Stabiler Export" data-en="Direct field assignment · Stable export">Direkte Feldzuweisung · Stabiler Export</div>
+                <div class="flex gap-1 mt-2">
+                  <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700" data-de="Formularfelder auto-befüllt" data-en="Form fields auto-filled">Formularfelder auto-befüllt</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4: Kalender & Sync (large, 2-col) -->
+        <div class="bento-card lg:col-span-2 p-8 reveal">
+          <div class="flex flex-col md:flex-row gap-8 h-full">
+            <div class="flex-1">
+              <div class="w-12 h-12 rounded-2xl bg-emerald-600 flex items-center justify-center mb-5 shadow-lg shadow-emerald-100">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              </div>
+              <h3 class="text-2xl font-bold text-slate-900 mb-2" data-de="Fristenverfolgung &amp; Status-Tracking" data-en="Deadline tracking &amp; status monitoring">Fristenverfolgung &amp; Status-Tracking</h3>
+              <p class="text-slate-500 mb-5" data-de="SchufaCleaner verfolgt alle Widersprüche mit gesetzlichen Fristen automatisch nach. Erhalte Erinnerungen bei ablaufenden BDSG-Fristen oder fehlenden Rückmeldungen der Auskunfteien." data-en="SchufaCleaner automatically tracks all disputes with statutory deadlines. Receive reminders for expiring BDSG deadlines or missing responses from credit bureaus.">SchufaCleaner verfolgt alle Widersprüche automatisch nach. Erinnerungen bei ablaufenden BDSG-Fristen oder fehlenden Rückmeldungen der Auskunfteien.</p>
+              <div class="flex flex-wrap gap-2">
+                <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-full px-3 py-1.5">
+                  <svg class="w-3.5 h-3.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <span class="text-xs font-semibold text-slate-600" data-de="BDSG-Fristen" data-en="BDSG deadlines">BDSG-Fristen</span>
+                </div>
+                <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-full px-3 py-1.5">
+                  <svg class="w-3.5 h-3.5 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                  <span class="text-xs font-semibold text-slate-600" data-de="Erinnerungen" data-en="Reminders">Erinnerungen</span>
+                </div>
+                <div class="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-full px-3 py-1.5">
+                  <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <span class="text-xs font-semibold text-emerald-700" data-de="Status-Updates" data-en="Status updates">Status-Updates</span>
+                </div>
+              </div>
+            </div>
+            <!-- Mini calendar mockup -->
+            <div class="flex-shrink-0 bg-slate-50 rounded-2xl p-4 border border-slate-100 w-full md:w-56">
+              <div class="text-xs font-bold text-slate-700 mb-3 text-center">April 2026</div>
+              <div class="grid grid-cols-7 gap-1">
+                <div class="text-center text-[9px] text-slate-400 font-semibold">Mo</div><div class="text-center text-[9px] text-slate-400 font-semibold">Di</div><div class="text-center text-[9px] text-slate-400 font-semibold">Mi</div><div class="text-center text-[9px] text-slate-400 font-semibold">Do</div><div class="text-center text-[9px] text-slate-400 font-semibold">Fr</div><div class="text-center text-[9px] text-slate-400 font-semibold">Sa</div><div class="text-center text-[9px] text-slate-400 font-semibold">So</div>
+                <div class="text-center text-[9px] text-slate-300 py-1">31</div>
+                <div class="text-center text-[9px] text-slate-600 py-1">1</div><div class="text-center text-[9px] text-slate-600 py-1">2</div><div class="text-center text-[9px] text-slate-600 py-1">3</div><div class="text-center text-[9px] text-slate-600 py-1">4</div>
+                <div class="text-center text-[9px] bg-amber-100 text-amber-700 font-bold py-1 rounded">5</div><div class="text-center text-[9px] bg-amber-100 text-amber-700 font-bold py-1 rounded">6</div>
+                <div class="text-center text-[9px] bg-indigo-100 text-indigo-700 font-bold py-1 rounded">7</div><div class="text-center text-[9px] bg-indigo-100 text-indigo-700 font-bold py-1 rounded">8</div><div class="text-center text-[9px] bg-indigo-100 text-indigo-700 font-bold py-1 rounded">9</div><div class="text-center text-[9px] bg-indigo-100 text-indigo-700 font-bold py-1 rounded">10</div><div class="text-center text-[9px] bg-indigo-100 text-indigo-700 font-bold py-1 rounded">11</div>
+                <div class="text-center text-[9px] text-slate-300 py-1">12</div><div class="text-center text-[9px] text-slate-300 py-1">13</div>
+                <div class="text-center text-[9px] text-slate-600 py-1">14</div><div class="text-center text-[9px] bg-indigo-600 text-white font-bold py-1 rounded-full">15</div><div class="text-center text-[9px] bg-emerald-100 text-emerald-700 font-bold py-1 rounded">16</div><div class="text-center text-[9px] bg-emerald-100 text-emerald-700 font-bold py-1 rounded">17</div><div class="text-center text-[9px] bg-emerald-100 text-emerald-700 font-bold py-1 rounded">18</div>
+                <div class="text-center text-[9px] text-slate-300 py-1">19</div><div class="text-center text-[9px] text-slate-300 py-1">20</div>
+              </div>
+              <div class="flex gap-2 mt-3 flex-wrap">
+                <div class="flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-indigo-400"></div><span class="text-[9px] text-slate-500" data-de="Bereinigt" data-en="Cleared">Bereinigt</span></div>
+                <div class="flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-amber-400"></div><span class="text-[9px] text-slate-500" data-de="Ausstehend" data-en="Pending">Ausstehend</span></div>
+                <div class="flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-emerald-400"></div><span class="text-[9px] text-slate-500" data-de="In Prüfung" data-en="In review">In Prüfung</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ APP SHOWCASE ══════════════════════════════════════════ -->
+  <section id="showcase" style="background:#070b14;" class="py-28 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="text-center mb-12 reveal">
+        <div class="section-chip section-chip-dark mb-5" data-de="Live App-Ansicht" data-en="Live app view">Live App-Ansicht</div>
+        <h2 class="text-4xl md:text-5xl font-black text-white font-display tracking-tight mb-4" data-de="Die echte Oberfläche." data-en="The real interface.">Die echte Oberfläche.</h2>
+        <p class="text-white/45 text-lg max-w-xl mx-auto" data-de="Keine Marketing-Mockups – echte UI-Elemente aus der SchufaCleaner-Anwendung." data-en="No marketing mockups – real UI elements from the SchufaCleaner application.">Keine Marketing-Mockups – echte UI-Elemente aus der SchufaCleaner-Anwendung.</p>
+      </div>
+
+      <!-- Tab buttons -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 mb-6 justify-center reveal">
+        <button class="tab-btn active" data-tab="dashboard" data-de="Übersicht" data-en="Overview">Übersicht</button>
+        <button class="tab-btn" data-tab="requests" data-de="Meine Widersprüche" data-en="My Disputes">Meine Widersprüche</button>
+        <button class="tab-btn" data-tab="calendar" data-de="Fristen" data-en="Deadlines">Fristen</button>
+        <button class="tab-btn" data-tab="admin" data-de="Einstellungen" data-en="Settings">Einstellungen</button>
+      </div>
+
+      <div class="reveal">
+        <!-- TAB: Dashboard -->
+        <div id="tab-dashboard" class="tab-panel active">
+          <div class="app-window">
+            <div class="app-window-bar">
+              <div class="win-dot win-dot-red"></div>
+              <div class="win-dot win-dot-yellow"></div>
+              <div class="win-dot win-dot-green"></div>
+              <div class="win-url">schufacleaner.app/dashboard</div>
+            </div>
+            <div class="app-window-body">
+              <div class="app-sidebar">
+                <div class="sidebar-logo-row">
+                  <div class="sidebar-logo-icon">
+                    <svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                  </div>
+                  <span class="sidebar-logo-text">SC</span>
+                </div>
+                <div class="sidebar-nav-item active"><div class="nav-dot active"></div>Übersicht</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Fristen</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Meine Widersprüche</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Einstellungen</div>
+                <div style="margin-top:auto; padding-top:8px; border-top:1px solid rgba(255,255,255,0.06);">
+                  <div class="sidebar-nav-item" style="font-size:10px;opacity:.6;"><div class="nav-dot"></div>Konto</div>
+                  <div class="sidebar-nav-item" style="font-size:10px;opacity:.6;"><div class="nav-dot"></div>Berichte</div>
+                  <div class="sidebar-nav-item" style="font-size:10px;opacity:.6;"><div class="nav-dot"></div>Einstellungen</div>
+                </div>
+              </div>
+              <div class="app-content">
+                <div class="content-title" data-de="Ihre SCHUFA-Übersicht 📋" data-en="Your SCHUFA overview 📋">Ihre SCHUFA-Übersicht 📋</div>
+                <div class="grid grid-cols-3 gap-3 mb-4">
+                  <div class="glass-card-dark rounded-xl p-3">
+                    <div style="font-size:9px;color:rgba(255,255,255,0.35);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;" data-de="Einträge" data-en="Entries">Einträge</div>
+                    <div style="font-size:22px;font-weight:800;color:#f59e0b;font-family:'Outfit',sans-serif;">12</div>
+                  </div>
+                  <div class="glass-card-dark rounded-xl p-3">
+                    <div style="font-size:9px;color:rgba(255,255,255,0.35);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;" data-de="Fehler" data-en="Errors">Fehler</div>
+                    <div style="font-size:22px;font-weight:800;color:#10b981;font-family:'Outfit',sans-serif;">4</div>
+                  </div>
+                  <div class="glass-card-dark rounded-xl p-3">
+                    <div style="font-size:9px;color:rgba(255,255,255,0.35);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;" data-de="Widersprüche" data-en="Disputes">Widersprüche</div>
+                    <div style="font-size:22px;font-weight:800;color:#818cf8;font-family:'Outfit',sans-serif;">2</div>
+                  </div>
+                </div>
+                <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:8px;" data-de="Aktuelle Einträge" data-en="Current entries">Aktuelle Einträge</div>
+                <div class="space-y-2">
+                  <div class="glass-card-dark rounded-xl p-2.5 flex items-center gap-3">
+                    <div style="width:28px;height:28px;border-radius:50%;background:rgba(99,102,241,0.3);flex-shrink:0;"></div>
+                    <div style="flex:1;">
+                      <div style="font-size:11px;font-weight:600;color:#fff;" data-de="Negativmerkmal" data-en="Negative entry">Negativmerkmal</div>
+                      <div style="font-size:9px;color:rgba(255,255,255,0.35);" data-de="Eingetragen 03/2020 · Überschritten" data-en="Registered 03/2020 · Exceeded">Eingetragen 03/2020 · Überschritten</div>
+                    </div>
+                    <span class="status-badge badge-approved" data-de="Anfechtbar" data-en="Contestable">Anfechtbar</span>
+                  </div>
+                  <div class="glass-card-dark rounded-xl p-2.5 flex items-center gap-3">
+                    <div style="width:28px;height:28px;border-radius:50%;background:rgba(245,158,11,0.3);flex-shrink:0;"></div>
+                    <div style="flex:1;">
+                      <div style="font-size:11px;font-weight:600;color:#fff;" data-de="Anfrage Dritter" data-en="Third-party query">Anfrage Dritter</div>
+                      <div style="font-size:9px;color:rgba(255,255,255,0.35);" data-de="Eingetragen 01/2024 · Frist 01/2025" data-en="Registered 01/2024 · Deadline 01/2025">Eingetragen 01/2024 · Frist 01/2025</div>
+                    </div>
+                    <span class="status-badge badge-pending" data-de="In Prüfung" data-en="In review">In Prüfung</span>
+                  </div>
+                  <div class="glass-card-dark rounded-xl p-2.5 flex items-center gap-3">
+                    <div style="width:28px;height:28px;border-radius:50%;background:rgba(239,68,68,0.2);flex-shrink:0;"></div>
+                    <div style="flex:1;">
+                      <div style="font-size:11px;font-weight:600;color:#fff;" data-de="Kreditanfrage" data-en="Credit inquiry">Kreditanfrage</div>
+                      <div style="font-size:9px;color:rgba(255,255,255,0.35);" data-de="Eingetragen 06/2023 · Bereinigt" data-en="Registered 06/2023 · Cleared">Eingetragen 06/2023 · Bereinigt</div>
+                    </div>
+                    <span class="status-badge badge-approved" data-de="Bereinigt" data-en="Cleared">Bereinigt</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: Meine Anträge -->
+        <div id="tab-requests" class="tab-panel">
+          <div class="app-window">
+            <div class="app-window-bar">
+              <div class="win-dot win-dot-red"></div><div class="win-dot win-dot-yellow"></div><div class="win-dot win-dot-green"></div>
+              <div class="win-url">schufacleaner.app/disputes</div>
+            </div>
+            <div class="app-window-body">
+              <div class="app-sidebar">
+                <div class="sidebar-logo-row">
+                  <div class="sidebar-logo-icon"><svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+                  <span class="sidebar-logo-text">SC</span>
+                </div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Übersicht</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Fristen</div>
+                <div class="sidebar-nav-item active"><div class="nav-dot active"></div>Meine Widersprüche</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Einstellungen</div>
+              </div>
+              <div class="app-content">
+                <div class="content-title" data-de="Meine Widersprüche" data-en="My Disputes">Meine Widersprüche</div>
+                <!-- Filter tabs -->
+                <div class="flex gap-2 mb-4">
+                  <div style="padding:4px 10px;border-radius:20px;background:#6366f1;color:#fff;font-size:10px;font-weight:700;" data-de="Alle" data-en="All">Alle</div>
+                  <div style="padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);font-size:10px;font-weight:600;" data-de="Offen" data-en="Open">Offen</div>
+                  <div style="padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);font-size:10px;font-weight:600;" data-de="Bereinigt" data-en="Cleared">Bereinigt</div>
+                  <div style="padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);font-size:10px;font-weight:600;" data-de="Abgelehnt" data-en="Rejected">Abgelehnt</div>
+                </div>
+                <div class="space-y-2">
+                  <div class="glass-card-dark rounded-xl p-3 flex items-center gap-3">
+                    <div style="flex:1;"><div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:2px;" data-de="Negativmerkmal 03/2020" data-en="Negative entry 03/2020">Negativmerkmal 03/2020</div><div style="font-size:9px;color:rgba(255,255,255,0.35);" data-de="Löschfrist überschritten · DSGVO Art. 17" data-en="Deletion deadline exceeded · GDPR Art. 17">Löschfrist überschritten · DSGVO Art. 17</div></div>
+                    <span class="status-badge badge-approved">✓ Anfechtbar</span>
+                  </div>
+                  <div class="glass-card-dark rounded-xl p-3 flex items-center gap-3">
+                    <div style="flex:1;"><div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:2px;" data-de="Anfrage Dritter 01/2024" data-en="Third-party query 01/2024">Anfrage Dritter 01/2024</div><div style="font-size:9px;color:rgba(255,255,255,0.35);" data-de="Frist: 01/2025 · Widerspruch versendet" data-en="Deadline: 01/2025 · Dispute sent">Frist: 01/2025 · Widerspruch versendet</div></div>
+                    <span class="status-badge badge-pending">⏳ In Prüfung</span>
+                  </div>
+                  <div class="glass-card-dark rounded-xl p-3 flex items-center gap-3">
+                    <div style="flex:1;"><div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:2px;" data-de="Kreditanfrage 06/2023" data-en="Credit inquiry 06/2023">Kreditanfrage 06/2023</div><div style="font-size:9px;color:rgba(255,255,255,0.35);" data-de="Erfolgreich bereinigt" data-en="Successfully cleared">Erfolgreich bereinigt</div></div>
+                    <span class="status-badge badge-approved">✓ Bereinigt</span>
+                  </div>
+                  <div class="glass-card-dark rounded-xl p-3 flex items-center gap-3">
+                    <div style="flex:1;"><div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:2px;" data-de="Inkasso-Eintrag 09/2022" data-en="Collection entry 09/2022">Inkasso-Eintrag 09/2022</div><div style="font-size:9px;color:rgba(255,255,255,0.35);" data-de="Widerspruch eingereicht" data-en="Dispute filed">Widerspruch eingereicht</div></div>
+                    <span class="status-badge badge-approved">✓ Eingereicht</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: Kalender -->
+        <div id="tab-calendar" class="tab-panel">
+          <div class="app-window">
+            <div class="app-window-bar">
+              <div class="win-dot win-dot-red"></div><div class="win-dot win-dot-yellow"></div><div class="win-dot win-dot-green"></div>
+              <div class="win-url">schufacleaner.app/deadlines</div>
+            </div>
+            <div class="app-window-body">
+              <div class="app-sidebar">
+                <div class="sidebar-logo-row">
+                  <div class="sidebar-logo-icon"><svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+                  <span class="sidebar-logo-text">SC</span>
+                </div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Übersicht</div>
+                <div class="sidebar-nav-item active"><div class="nav-dot active"></div>Fristen</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Meine Widersprüche</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Einstellungen</div>
+              </div>
+              <div class="app-content">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="content-title mb-0" data-de="Fristen Juli 2026" data-en="Deadlines July 2026">Fristen Juli 2026</div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <div class="flex items-center gap-1.5 text-[10px] text-white/50"><div class="w-2.5 h-2.5 rounded-full bg-indigo-500"></div>Bereinigt</div>
+                    <div class="flex items-center gap-1.5 text-[10px] text-white/50"><div class="w-2.5 h-2.5 rounded-full bg-amber-500"></div>Ausstehend</div>
+                  </div>
+                </div>
+                <div class="grid grid-cols-7 gap-1">
+                  <div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.3);font-weight:600;padding-bottom:4px;">Mo</div><div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.3);font-weight:600;padding-bottom:4px;">Di</div><div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.3);font-weight:600;padding-bottom:4px;">Mi</div><div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.3);font-weight:600;padding-bottom:4px;">Do</div><div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.3);font-weight:600;padding-bottom:4px;">Fr</div><div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.3);font-weight:600;padding-bottom:4px;">Sa</div><div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.3);font-weight:600;padding-bottom:4px;">So</div>
+                  <div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.4);padding:4px 2px;">1</div><div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.4);padding:4px 2px;">2</div><div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.4);padding:4px 2px;">3</div><div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.4);padding:4px 2px;">4</div><div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.4);padding:4px 2px;">5</div><div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.2);padding:4px 2px;">6</div><div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.2);padding:4px 2px;">7</div>
+                  <div style="text-align:center;font-size:9px;background:rgba(99,102,241,0.25);color:#818cf8;font-weight:700;border-radius:5px;padding:4px 2px;">7</div><div style="text-align:center;font-size:9px;background:rgba(99,102,241,0.25);color:#818cf8;font-weight:700;border-radius:5px;padding:4px 2px;">8</div><div style="text-align:center;font-size:9px;background:rgba(99,102,241,0.25);color:#818cf8;font-weight:700;border-radius:5px;padding:4px 2px;">9</div><div style="text-align:center;font-size:9px;background:rgba(99,102,241,0.25);color:#818cf8;font-weight:700;border-radius:5px;padding:4px 2px;">10</div><div style="text-align:center;font-size:9px;background:rgba(99,102,241,0.25);color:#818cf8;font-weight:700;border-radius:5px;padding:4px 2px;">11</div><div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.2);padding:4px 2px;">12</div><div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.2);padding:4px 2px;">13</div>
+                  <div style="text-align:center;font-size:9px;background:rgba(99,102,241,0.25);color:#818cf8;font-weight:700;border-radius:5px;padding:4px 2px;">14</div><div style="text-align:center;font-size:9px;background:rgba(99,102,241,0.25);color:#818cf8;font-weight:700;border-radius:5px;padding:4px 2px;">15</div><div style="text-align:center;font-size:9px;background:rgba(99,102,241,0.25);color:#818cf8;font-weight:700;border-radius:5px;padding:4px 2px;">16</div><div style="text-align:center;font-size:9px;background:rgba(99,102,241,0.25);color:#818cf8;font-weight:700;border-radius:5px;padding:4px 2px;">17</div><div style="text-align:center;font-size:9px;background:rgba(99,102,241,0.25);color:#818cf8;font-weight:700;border-radius:5px;padding:4px 2px;">18</div><div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.2);padding:4px 2px;">19</div><div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.2);padding:4px 2px;">20</div>
+                  <div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.4);padding:4px 2px;">21</div><div style="text-align:center;font-size:9px;background:rgba(245,158,11,0.2);color:#f59e0b;font-weight:700;border-radius:5px;padding:4px 2px;">22</div><div style="text-align:center;font-size:9px;background:rgba(245,158,11,0.2);color:#f59e0b;font-weight:700;border-radius:5px;padding:4px 2px;">23</div><div style="text-align:center;font-size:9px;background:rgba(245,158,11,0.2);color:#f59e0b;font-weight:700;border-radius:5px;padding:4px 2px;">24</div><div style="text-align:center;font-size:9px;background:rgba(245,158,11,0.2);color:#f59e0b;font-weight:700;border-radius:5px;padding:4px 2px;">25</div><div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.2);padding:4px 2px;">26</div><div style="text-align:center;font-size:9px;color:rgba(255,255,255,0.2);padding:4px 2px;">27</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: Admin -->
+        <div id="tab-admin" class="tab-panel">
+          <div class="app-window">
+            <div class="app-window-bar">
+              <div class="win-dot win-dot-red"></div><div class="win-dot win-dot-yellow"></div><div class="win-dot win-dot-green"></div>
+              <div class="win-url">schufacleaner.app/settings</div>
+            </div>
+            <div class="app-window-body">
+              <div class="app-sidebar">
+                <div class="sidebar-logo-row">
+                  <div class="sidebar-logo-icon"><svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+                  <span class="sidebar-logo-text">SC</span>
+                </div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Übersicht</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Fristen</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Meine Widersprüche</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Einstellungen</div>
+                <div class="sidebar-nav-item active" style="color:#f59e0b;background:rgba(245,158,11,0.1);"><div class="nav-dot" style="background:#f59e0b;"></div>Konto</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Berichte</div>
+              </div>
+              <div class="app-content">
+                <div class="content-title" data-de="Konto &amp; Einstellungen" data-en="Account &amp; Settings">Konto &amp; Einstellungen</div>
+                <div class="flex items-center gap-2 mb-3 flex-wrap">
+                  <div style="padding:3px 10px;border-radius:20px;background:rgba(245,158,11,0.15);color:#f59e0b;font-size:9px;font-weight:700;border:1px solid rgba(245,158,11,0.2);" data-de="2 offene Widersprüche" data-en="2 open disputes">2 offene Widersprüche</div>
+                  <div style="padding:3px 10px;border-radius:20px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);font-size:9px;font-weight:600;" data-de="SCHUFA hochladen" data-en="Upload SCHUFA">+ SCHUFA hochladen</div>
+                </div>
+                <!-- User table -->
+                <div style="font-size:9px;color:rgba(255,255,255,0.3);font-weight:600;display:grid;grid-template-columns:1fr 1fr auto;gap:8px;padding:6px 8px;text-transform:uppercase;letter-spacing:.05em;">
+                  <div data-de="Nutzer" data-en="User">Nutzer</div><div data-de="Status" data-en="Status">Status</div><div data-de="Plan" data-en="Plan">Plan</div>
+                </div>
+                <div class="space-y-1.5">
+                  <div class="glass-card-dark rounded-lg p-2 flex items-center gap-3" style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:center;">
+                    <div style="font-size:11px;color:#fff;font-weight:600;">Max Müller</div>
+                    <span class="status-badge badge-pending" style="font-size:8px;">In Prüfung</span>
+                    <span style="font-size:8px;padding:1px 7px;border-radius:8px;background:rgba(245,158,11,0.15);color:#f59e0b;font-weight:700;">Pro</span>
+                  </div>
+                  <div class="glass-card-dark rounded-lg p-2" style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:center;">
+                    <div style="font-size:11px;color:#fff;font-weight:600;">Anna Schmidt</div>
+                    <span class="status-badge badge-approved" style="font-size:8px;">Bereinigt</span>
+                    <span style="font-size:8px;padding:1px 7px;border-radius:8px;background:rgba(99,102,241,0.15);color:#818cf8;font-weight:700;">Free</span>
+                  </div>
+                  <div class="glass-card-dark rounded-lg p-2" style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:center;">
+                    <div style="font-size:11px;color:#fff;font-weight:600;">Lars Becker</div>
+                    <span class="status-badge badge-pending" style="font-size:8px;">Ausstehend</span>
+                    <span style="font-size:8px;padding:1px 7px;border-radius:8px;background:rgba(99,102,241,0.15);color:#818cf8;font-weight:700;">Free</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ZUSATZFUNKTIONEN ═══════════════════════════════════════ -->
+  <section id="extras" class="py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="text-center mb-14 reveal">
+        <div class="section-chip mb-5" data-de="Weitere Funktionen" data-en="More features">Weitere Funktionen</div>
+        <h2 class="text-4xl font-black text-slate-900 font-display tracking-tight mb-4" data-de="Alles, was Sie brauchen." data-en="Everything you need.">Alles, was Sie brauchen.</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="glass-card rounded-2xl p-6 reveal">
+          <div class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center mb-4"><svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></div>
+          <h3 class="font-bold text-slate-900 mb-2" data-de="Bonitätsprüfung" data-en="Credit check">Bonitätsprüfung</h3>
+          <p class="text-slate-500 text-sm" data-de="Verstehen Sie Ihren SCHUFA-Score und welche Einträge ihn negativ beeinflussen – mit klarer Erklärung jedes Faktors." data-en="Understand your SCHUFA score and which entries affect it negatively – with a clear explanation of each factor.">Verstehen Sie Ihren SCHUFA-Score und welche Einträge ihn negativ beeinflussen – mit klarer Erklärung.</p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 reveal">
+          <div class="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center mb-4"><svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+          <h3 class="font-bold text-slate-900 mb-2" data-de="Mehrere Auskunfteien" data-en="Multiple credit bureaus">Mehrere Auskunfteien</h3>
+          <p class="text-slate-500 text-sm" data-de="Neben SCHUFA unterstützt SchufaCleaner Widersprüche bei Creditreform, Bürgel und anderen deutschen Auskunfteien." data-en="In addition to SCHUFA, SchufaCleaner supports disputes with Creditreform, Bürgel and other German credit bureaus.">Neben SCHUFA unterstützt SchufaCleaner Widersprüche bei Creditreform, Bürgel und weiteren deutschen Auskunfteien.</p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 reveal">
+          <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center mb-4"><svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+          <h3 class="font-bold text-slate-900 mb-2" data-de="Nutzer-Einstellungen" data-en="User settings">Nutzer-Einstellungen</h3>
+          <p class="text-slate-500 text-sm" data-de="Name, E-Mail und Kontaktdaten dauerhaft hinterlegen. Widerspruchsschreiben werden automatisch vorausgefüllt und personalisiert." data-en="Store name, email and contact details permanently. Dispute letters are automatically pre-filled and personalised.">Name und Kontaktdaten dauerhaft hinterlegbar. Widerspruchsschreiben werden automatisch vorausgefüllt.</p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 reveal">
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center mb-4"><svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div>
+          <h3 class="font-bold text-slate-900 mb-2" data-de="Verlaufsberichte" data-en="History reports">Verlaufsberichte</h3>
+          <p class="text-slate-500 text-sm" data-de="Sehen Sie den vollständigen Verlauf aller eingereichten Widersprüche, Antworten der Auskunfteien und Bereinigungen im Zeitverlauf." data-en="See the complete history of all submitted disputes, credit bureau responses and clearances over time.">Vollständiger Verlauf aller Widersprüche, Auskunftei-Antworten und Bereinigungen im Zeitverlauf.</p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 reveal">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center mb-4"><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg></div>
+          <h3 class="font-bold text-slate-900 mb-2" data-de="DSGVO &amp; Sicherheit" data-en="GDPR &amp; Security">DSGVO &amp; Sicherheit</h3>
+          <p class="text-slate-500 text-sm" data-de="Authentifizierung via Supabase, rollenbasierter Zugriff (RLS), Datenspeicherung ausschließlich in der EU." data-en="Authentication via Supabase, role-based access control (RLS), data storage exclusively in the EU.">Authentifizierung via Supabase, rollenbasierter Zugriff (RLS), EU-Datenspeicherung.</p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 reveal">
+          <div class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center mb-4"><svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm0 8a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zm12 0a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg></div>
+          <h3 class="font-bold text-slate-900 mb-2" data-de="TeamRadar-Integration" data-en="TeamRadar integration">TeamRadar-Integration</h3>
+          <p class="text-slate-500 text-sm" data-de="SchufaCleaner ist Teil der WAMOCON-Produktfamilie. Als Micro-Frontend in TeamRadar einbettbar – für Unternehmen mit mehreren WAMOCON-Apps." data-en="SchufaCleaner is part of the WAMOCON product family. Embeddable as a micro-frontend in TeamRadar – for companies with multiple WAMOCON apps.">SchufaCleaner ist Teil der WAMOCON-Produktfamilie – als Micro-Frontend in TeamRadar einbettbar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ROI RECHNER ═══════════════════════════════════════════ -->
+  <section id="roi" style="background:#070b14;" class="py-28 relative overflow-hidden">
+    <div class="orb w-96 h-96 bg-indigo-700/20 top-0 right-0"></div>
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="text-center mb-16 reveal">
+        <div class="section-chip section-chip-dark mb-5" data-de="ROI Rechner" data-en="ROI Calculator">ROI Rechner</div>
+        <h2 class="text-4xl md:text-5xl font-black text-white font-display tracking-tight mb-4" data-de="Wie viel könnte Ihr Score steigen?" data-en="How much could your score improve?">Wie viel könnte Ihr Score steigen?</h2>
+        <p class="text-white/45 text-lg max-w-xl mx-auto" data-de="Berechnen Sie die mögliche Verbesserung Ihrer Bonität – transparent, ohne erfundene Zahlen." data-en="Calculate your potential credit score improvement – transparent, no made-up numbers.">Berechnen Sie die mögliche Verbesserung Ihrer Bonität – transparent, ohne erfundene Zahlen.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <!-- Sliders -->
+        <div class="reveal">
+          <div class="space-y-10">
+            <div>
+              <div class="flex justify-between items-center mb-3">
+                <label class="text-sm font-bold uppercase tracking-widest text-indigo-400" data-de="Anzahl negativer Einträge" data-en="Number of negative entries">Anzahl negativer Einträge</label>
+                <span id="employee-count-label" class="text-2xl font-black text-white font-display">3</span>
+              </div>
+              <input type="range" id="employee-slider" min="1" max="20" value="3">
+            </div>
+            <div>
+              <div class="flex justify-between items-center mb-3">
+                <label class="text-sm font-bold uppercase tracking-widest text-indigo-400" data-de="Geplante Investition / Kredit (€)" data-en="Planned investment / loan (€)">Geplante Investition / Kredit (€)</label>
+                <span id="request-count-label" class="text-2xl font-black text-white font-display">30.000</span>
+              </div>
+              <input type="range" id="request-slider" min="5000" max="100000" value="30000" step="1000">
+            </div>
+          </div>
+          <!-- Disclaimer -->
+          <div class="mt-8 flex gap-3 p-4 rounded-2xl bg-white/4 border border-white/8">
+            <svg class="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <p class="text-white/35 text-xs leading-relaxed" data-de="Schätzung: Basis ist ein durchschnittlicher Schaden durch negative SCHUFA-Einträge (höhere Zinsen, abgelehnte Mietanträge etc.) und ein angenommener Bereinigungserfolg von ~70% anfechtbarer Einträge. Eigene Werte können abweichen." data-en="Estimate: Based on average damage from negative SCHUFA entries (higher interest rates, rejected rental applications etc.) and an assumed success rate of ~70% for contestable entries. Your actual values may differ.">Schätzung: Basis ist ein durchschnittlicher Schaden durch negative SCHUFA-Einträge und ein angenommener Bereinigungserfolg von ~70% anfechtbarer Einträge. Eigene Werte können abweichen.</p>
+          </div>
+        </div>
+        <!-- Result -->
+        <div class="relative reveal">
+          <div class="absolute inset-0 bg-indigo-600/15 blur-3xl rounded-full"></div>
+          <div class="glass-card-dark border border-white/10 p-10 rounded-3xl text-center relative">
+            <div class="text-indigo-400 text-xs font-bold uppercase tracking-widest mb-4" data-de="Geschätzter Bonitätsvorteil" data-en="Estimated credit advantage">Geschätzter Bonitätsvorteil</div>
+            <div id="savings-value" class="text-6xl font-black text-white mb-3 font-display transition-transform">2.125 €</div>
+            <div class="text-white/40 mb-8 text-sm">≈ <span id="hours-value" class="text-white font-bold">43 Pkt.</span> <span data-de="mehr SCHUFA-Score möglich" data-en="more SCHUFA score possible">mehr SCHUFA-Score möglich</span></div>
+            <a href="#pricing" class="block w-full bg-indigo-600 hover:bg-indigo-500 text-white py-4 rounded-2xl font-bold transition-all shadow-lg shadow-indigo-900/40" data-de="Jetzt SCHUFA bereinigen" data-en="Clean SCHUFA now">Jetzt SCHUFA bereinigen</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PRICING ════════════════════════════════════════════════ -->
+  <section id="pricing" class="py-28 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="text-center mb-16 reveal">
+        <div class="section-chip mb-5" data-de="Preise" data-en="Pricing">Preise</div>
+        <h2 class="text-4xl md:text-5xl font-black text-slate-900 font-display tracking-tight mb-4" data-de="Einfach. Transparent. Skalierbar." data-en="Simple. Transparent. Scalable.">Einfach. Transparent. Skalierbar.</h2>
+        <p class="text-slate-500 text-lg max-w-xl mx-auto" data-de="Keine versteckten Kosten. Jederzeit kündbar." data-en="No hidden costs. Cancel at any time.">Keine versteckten Kosten. Jederzeit kündbar.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+
+        <!-- FREE -->
+        <div class="pricing-card reveal">
+          <div class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3" data-de="KOSTENLOS" data-en="FREE">KOSTENLOS</div>
+          <div class="flex items-end gap-1 mb-1">
+            <div class="text-4xl font-black text-slate-900 font-display">0 €</div>
+          </div>
+          <div class="text-slate-400 text-sm mb-6" data-de="1 Analyse · 1 Widerspruchsbrief" data-en="1 analysis · 1 dispute letter">1 Analyse · 1 Widerspruchsbrief</div>
+          <a href="https://schufacleaner.vercel.app/" target="_blank" rel="noopener" class="block w-full text-center border border-slate-200 hover:border-indigo-400 text-slate-700 hover:text-indigo-600 py-3 rounded-xl font-semibold text-sm transition-all mb-6" data-de="Kostenlos starten" data-en="Start free">Kostenlos starten</a>
+          <div class="space-y-1">
+            <div class="pf-row"><svg class="check-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span data-de="1 SCHUFA-Analyse" data-en="1 SCHUFA analysis">1 SCHUFA-Analyse</span></div>
+            <div class="pf-row"><svg class="check-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span data-de="1 Widerspruchsbrief (PDF)" data-en="1 dispute letter (PDF)">1 Widerspruchsbrief (PDF)</span></div>
+            <div class="pf-row"><svg class="check-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span data-de="KI-Fehlererkennung" data-en="AI error detection">KI-Fehlererkennung</span></div>
+            <div class="pf-row"><svg class="check-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span data-de="DSGVO-Fristen-Hinweise" data-en="GDPR deadline notices">DSGVO-Fristen-Hinweise</span></div>
+            <div class="pf-row"><svg class="cross-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg><span class="text-slate-400" data-de="Unbegrenzte Analysen" data-en="Unlimited analyses">Unbegrenzte Analysen</span></div>
+            <div class="pf-row"><svg class="cross-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg><span class="text-slate-400" data-de="Fristenverfolgung" data-en="Deadline tracking">Fristenverfolgung</span></div>
+            <div class="pf-row"><svg class="cross-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg><span class="text-slate-400" data-de="Prioritäts-Support" data-en="Priority support">Prioritäts-Support</span></div>
+          </div>
+        </div>
+
+        <!-- Pro (featured) -->
+        <div class="pricing-card featured reveal">
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg" data-de="Empfohlen" data-en="Recommended">Empfohlen</div>
+          <div class="text-xs font-bold uppercase tracking-widest text-indigo-600 mb-3">PRO</div>
+          <div class="flex items-end gap-1 mb-1">
+            <div class="text-4xl font-black text-slate-900 font-display">9 €</div>
+            <div class="text-slate-400 text-sm mb-1.5" data-de="/ Nutzer / Monat" data-en="/ user / month">/ Nutzer / Monat</div>
+          </div>
+          <div class="text-slate-400 text-sm mb-6" data-de="Unbegrenzte Analysen &amp; Widersprüche" data-en="Unlimited analyses &amp; disputes">Unbegrenzte Analysen &amp; Widersprüche</div>
+          <a href="https://schufacleaner.vercel.app/" target="_blank" rel="noopener" class="block w-full text-center bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl font-semibold text-sm transition-all mb-6 shadow-lg shadow-indigo-100" data-de="Pro testen" data-en="Try Pro">Pro testen</a>
+          <div class="space-y-1">
+            <div class="pf-row"><svg class="check-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span data-de="Alles aus Free" data-en="Everything in Free">Alles aus Free</span></div>
+            <div class="pf-row"><svg class="check-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span data-de="Unbegrenzte SCHUFA-Analysen" data-en="Unlimited SCHUFA analyses">Unbegrenzte SCHUFA-Analysen</span></div>
+            <div class="pf-row"><svg class="check-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span data-de="Unbegrenzte Widerspruchsbriefe" data-en="Unlimited dispute letters">Unbegrenzte Widerspruchsbriefe</span></div>
+            <div class="pf-row"><svg class="check-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span data-de="Fristenverfolgung &amp; Erinnerungen" data-en="Deadline tracking &amp; reminders">Fristenverfolgung &amp; Erinnerungen</span></div>
+            <div class="pf-row"><svg class="check-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span data-de="Mehrere Auskunfteien" data-en="Multiple credit bureaus">Mehrere Auskunfteien</span></div>
+            <div class="pf-row"><svg class="check-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span data-de="Verlaufsberichte" data-en="History reports">Verlaufsberichte</span></div>
+            <div class="pf-row"><svg class="check-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span data-de="Prioritäts-Support" data-en="Priority support">Prioritäts-Support</span></div>
+          </div>
+        </div>
+
+        <!-- Legal Expert Package -->
+        <div class="innovation-card reveal">
+          <div class="relative z-10">
+            <div class="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-3">LEGAL EXPERT PACKAGE</div>
+            <div class="text-3xl font-black text-white font-display mb-1" data-de="Auf Anfrage" data-en="On request">Auf Anfrage</div>
+            <div class="text-white/40 text-sm mb-6" data-de="SchufaCleaner Pro + Rechtsberatung" data-en="SchufaCleaner Pro + legal advice">SchufaCleaner Pro + Rechtsberatung</div>
+            <a href="#" onclick="openContactModal();return false;" class="block w-full text-center border border-indigo-500/50 hover:border-indigo-400 text-indigo-300 hover:text-white py-3 rounded-xl font-semibold text-sm transition-all mb-6" data-de="Beratung anfragen" data-en="Request consultation">Beratung anfragen</a>
+            <div class="space-y-1">
+              <div class="pf-row" style="border-color:rgba(255,255,255,0.05);color:rgba(255,255,255,0.65);">
+                <svg class="check-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span data-de="Alles aus Pro" data-en="Everything in Pro">Alles aus Pro</span>
+              </div>
+              <div class="pf-row" style="border-color:rgba(255,255,255,0.05);color:rgba(255,255,255,0.65);">
+                <svg class="check-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span data-de="Individuelle Rechtsberatung" data-en="Individual legal advice">Individuelle Rechtsberatung</span>
+              </div>
+              <div class="pf-row" style="border-color:rgba(255,255,255,0.05);color:rgba(255,255,255,0.65);">
+                <svg class="check-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span data-de="Kanzlei-geprüfte Widersprüche" data-en="Law firm-reviewed disputes">Kanzlei-geprüfte Widersprüche</span>
+              </div>
+              <div class="pf-row" style="border-color:rgba(255,255,255,0.05);color:rgba(255,255,255,0.65);">
+                <svg class="check-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span data-de="Direktes Kanzlei-Netzwerk" data-en="Direct law firm network">Direktes Kanzlei-Netzwerk</span>
+              </div>
+              <div class="pf-row" style="border-color:rgba(255,255,255,0.05);color:rgba(255,255,255,0.65);">
+                <svg class="check-ico w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span data-de="Dedizierter Account-Manager" data-en="Dedicated account manager">Dedizierter Account-Manager</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ ════════════════════════════════════════════════════ -->
+  <section id="faq" class="py-28 bg-white">
+    <div class="max-w-3xl mx-auto px-5">
+      <div class="text-center mb-12 reveal">
+        <div class="section-chip mb-5" data-de="FAQ" data-en="FAQ">FAQ</div>
+        <h2 class="text-4xl font-black text-slate-900 font-display tracking-tight" data-de="Häufige Fragen." data-en="Frequently asked questions.">Häufige Fragen.</h2>
+      </div>
+      <div class="space-y-3 reveal">
+
+        <div class="faq-item">
+          <button class="faq-question" data-de="Wie funktioniert die SCHUFA-Analyse?" data-en="How does the SCHUFA analysis work?">Wie funktioniert die SCHUFA-Analyse?
+            <svg class="faq-chevron w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer" data-de="Du lädst deinen SCHUFA-Bericht (PDF) hoch. Unsere KI analysiert jeden Eintrag auf rechtliche Fristen (BDSG), sachliche Fehler und Löschpflichten nach DSGVO Art. 17. Erkannte Probleme werden dir übersichtlich aufgelistet." data-en="You upload your SCHUFA report (PDF). Our AI analyses every entry for legal deadlines (BDSG), factual errors and deletion obligations under GDPR Art. 17. Detected issues are listed clearly for you.">Du lädst deinen SCHUFA-Bericht (PDF) hoch. Unsere KI analysiert jeden Eintrag auf Fristen, Fehler und Löschpflichten nach DSGVO Art. 17.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" data-de="Sind die Widerspruchsbriefe rechtlich geprüft?" data-en="Are the dispute letters legally reviewed?">Sind die Widerspruchsbriefe rechtlich geprüft?
+            <svg class="faq-chevron w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer" data-de="Alle Musterschreiben basieren auf geprüften rechtlichen Vorlagen nach DSGVO und BDSG. Für individuelle Rechtsberatung empfehlen wir das Legal Expert Package mit Kanzlei-Anbindung." data-en="All template letters are based on legally reviewed templates under GDPR and BDSG. For individual legal advice we recommend the Legal Expert Package with law firm connection.">Alle Musterschreiben basieren auf geprüften Vorlagen nach DSGVO und BDSG. Für individuelle Beratung: Legal Expert Package.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" data-de="Welche Auskunfteien werden unterstützt?" data-en="Which credit bureaus are supported?">Welche Auskunfteien werden unterstützt?
+            <svg class="faq-chevron w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer" data-de="SchufaCleaner unterstützt SCHUFA, Creditreform Boniversum, Bürgel und CRIF Bürgel. Im Pro-Plan können Berichte mehrerer Auskunfteien gleichzeitig verwaltet werden." data-en="SchufaCleaner supports SCHUFA, Creditreform Boniversum, Bürgel and CRIF Bürgel. In the Pro plan, reports from multiple credit bureaus can be managed simultaneously.">SchufaCleaner unterstützt SCHUFA, Creditreform Boniversum, Bürgel und CRIF Bürgel. Im Pro-Plan auch mehrere Auskunfteien gleichzeitig.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" data-de="Was unterscheidet Free von Pro?" data-en="What's the difference between Free and Pro?">Was unterscheidet Free von Pro?
+            <svg class="faq-chevron w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer" data-de="Free: 1 SCHUFA-Analyse und 1 Widerspruchsbrief – kostenlos, ohne Kreditkarte. Pro (9 €/Monat): unbegrenzte Analysen, unbegrenzte Widerspruchsbriefe, Fristenverfolgung, mehrere Auskunfteien, Verlaufsberichte und Prioritäts-Support." data-en="Free: 1 SCHUFA analysis and 1 dispute letter – free, no credit card. Pro (€9/month): unlimited analyses, unlimited dispute letters, deadline tracking, multiple credit bureaus, history reports and priority support.">Free: 1 Analyse, 1 Brief. Pro (9 €/Mon.): unbegrenzte Analysen &amp; Briefe, Fristenverfolgung, mehrere Auskunfteien, Verlaufsberichte, Prioritäts-Support.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" data-de="Was ist das Legal Expert Package?" data-en="What is the Legal Expert Package?">Was ist das Legal Expert Package?
+            <svg class="faq-chevron w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer" data-de="Das Legal Expert Package kombiniert SchufaCleaner Pro mit individueller Rechtsberatung durch unser Kanzlei-Netzwerk. Ihre Widersprüche werden von Fachanwälten geprüft und direkt im Namen des Mandanten versendet. Konditionen auf Anfrage." data-en="The Legal Expert Package combines SchufaCleaner Pro with individual legal advice through our law firm network. Your disputes are reviewed by specialist lawyers and sent directly on behalf of the client. Pricing on request.">SchufaCleaner Pro + individuelle Rechtsberatung durch Kanzlei-Netzwerk. Widersprüche werden von Fachanwälten geprüft und direkt versendet.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" data-de="Wie sicher sind meine SCHUFA-Daten?" data-en="How secure is my SCHUFA data?">Wie sicher sind meine SCHUFA-Daten?
+            <svg class="faq-chevron w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer" data-de="Alle Daten werden ausschließlich auf deutschen EU-Servern gespeichert. Die Verarbeitung erfolgt DSGVO-konform; Ihre Berichte werden nach der Analyse nicht dauerhaft gespeichert. WAMOCON GmbH unterliegt deutschen Datenschutzgesetzen (BDSG)." data-en="All data is stored exclusively on German EU servers. Processing is GDPR-compliant; your reports are not permanently stored after analysis. WAMOCON GmbH is subject to German data protection law (BDSG).">Alle Daten auf deutschen EU-Servern. DSGVO-konform, keine dauerhafte Speicherung der SCHUFA-Berichte nach der Analyse. Unterliegt deutschem BDSG.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" data-de="Kann ich das Abo jederzeit kündigen?" data-en="Can I cancel the subscription anytime?">Kann ich das Abo jederzeit kündigen?
+            <svg class="faq-chevron w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer" data-de="Ja. Pro-Abos können monatlich gekündigt werden – keine Mindestlaufzeit. Nach der Kündigung wird dein Account automatisch auf Free zurückgestuft." data-en="Yes. Pro subscriptions can be cancelled monthly – no minimum term. After cancellation, your account is automatically downgraded to Free.">Ja, monatlich kündbar ohne Mindestlaufzeit. Nach Kündigung automatische Rückstufung auf Free.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" data-de="Funktioniert SchufaCleaner auf dem Smartphone?" data-en="Does SchufaCleaner work on smartphones?">Funktioniert SchufaCleaner auf dem Smartphone?
+            <svg class="faq-chevron w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer" data-de="SchufaCleaner ist als responsive Web-App (Next.js) entwickelt und auf Desktop, Tablet und Smartphone vollständig nutzbar. Eine native mobile App ist in der Roadmap geplant." data-en="SchufaCleaner is built as a responsive web app (Next.js) and fully usable on desktop, tablet and smartphone. A native mobile app is planned on the roadmap.">SchufaCleaner ist eine responsive Web-App – nutzbar auf Desktop, Tablet und Smartphone. Native App in der Roadmap.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FINAL CTA ══════════════════════════════════════════════ -->
+  <section style="background:#070b14;" class="py-28 relative overflow-hidden">
+    <div class="orb w-[500px] h-[500px] bg-indigo-700/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+    <div class="max-w-4xl mx-auto px-5 text-center relative z-10 reveal">
+      <div class="text-indigo-400 text-xs font-bold uppercase tracking-widest mb-5" data-de="Jetzt loslegen" data-en="Get started">Jetzt loslegen</div>
+      <h2 class="text-4xl md:text-6xl font-black text-white font-display tracking-tight mb-6"><span data-de="Bereit, Ihre SCHUFA zu bereinigen?" data-en="Ready to clean up your SCHUFA?">Bereit, Ihre SCHUFA zu bereinigen?</span></h2>
+      <p class="text-white/45 text-lg mb-10 max-w-xl mx-auto" data-de="Jetzt kostenlos starten – KI erkennt Fehler, generiert Widersprüche, verfolgt Fristen." data-en="Start free now – AI detects errors, generates disputes, tracks deadlines.">Jetzt kostenlos starten – KI erkennt Fehler, generiert Widersprüche, verfolgt Fristen.</p>
+      <div class="flex flex-wrap items-center gap-4 justify-center">
+        <a href="https://schufacleaner.vercel.app/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-4 rounded-2xl font-bold text-base transition-all shadow-xl shadow-indigo-900/40 active:scale-95" data-de="Kostenlos starten" data-en="Start free">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span data-de="Kostenlos starten" data-en="Start free">Kostenlos starten</span>
+        </a>
+        <a href="#showcase" class="inline-flex items-center gap-2 border border-white/15 hover:border-white/30 text-white/70 hover:text-white px-8 py-4 rounded-2xl font-bold text-base transition-all" data-de="App ansehen" data-en="See the app">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+          <span data-de="App ansehen" data-en="See the app">App ansehen</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═════════════════════════════════════════════════ -->
+  <footer style="background:#04070d;border-top:1px solid rgba(255,255,255,0.06);" class="py-16">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
+        <!-- Brand -->
+        <div class="col-span-2 md:col-span-1">
+          <div class="flex items-center gap-2.5 mb-5">
+            <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+              <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+            </div>
+            <span class="text-lg font-black text-white font-display tracking-tight">SchufaCleaner</span>
+          </div>
+          <p class="text-white/30 text-sm leading-relaxed mb-5" data-de="KI-gestützte SCHUFA-Bereinigung für Verbraucher in Deutschland. Entwickelt von WAMOCON." data-en="AI-powered SCHUFA cleanup for consumers in Germany. Developed by WAMOCON.">KI-gestützte SCHUFA-Bereinigung für Verbraucher in Deutschland. Entwickelt von WAMOCON.</p>
+          <!-- Germany badge -->
+          <div class="flex items-center gap-2 text-white/25 text-xs font-semibold">
+            <span>🇩🇪</span>
+            <span data-de="Entwickelt in Deutschland" data-en="Made in Germany">Entwickelt in Deutschland</span>
+          </div>
+        </div>
+
+        <!-- Product -->
+        <div>
+          <h4 class="text-white/50 text-xs font-bold uppercase tracking-widest mb-5" data-de="Produkt" data-en="Product">Produkt</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#features" class="text-white/35 hover:text-white transition-colors" data-de="Features" data-en="Features">Features</a></li>
+            <li><a href="#how" class="text-white/35 hover:text-white transition-colors" data-de="Wie es funktioniert" data-en="How it works">Wie es funktioniert</a></li>
+            <li><a href="#roi" class="text-white/35 hover:text-white transition-colors" data-de="ROI Rechner" data-en="ROI Calculator">ROI Rechner</a></li>
+            <li><a href="#pricing" class="text-white/35 hover:text-white transition-colors" data-de="Preise" data-en="Pricing">Preise</a></li>
+            <li><a href="#faq" class="text-white/35 hover:text-white transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- WAMOCON Products -->
+        <div>
+          <h4 class="text-white/50 text-xs font-bold uppercase tracking-widest mb-5" data-de="WAMOCON Produkte" data-en="WAMOCON Products">WAMOCON Produkte</h4>
+          <ul class="space-y-3 text-sm">
+            <li class="text-white/55 font-semibold flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-indigo-500"></span>SchufaCleaner
+              <span class="text-[10px] text-indigo-400/60 font-semibold ml-1" data-de="SCHUFA-Bereinigung" data-en="Credit cleanup">SCHUFA-Bereinigung</span>
+            </li>
+            <li class="text-white/35 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-teal-500"></span>TRACE
+              <span class="text-[10px] text-teal-400/60 font-semibold ml-1" data-de="Zeiterfassung" data-en="Time tracking">Zeiterfassung</span>
+            </li>
+            <li class="text-white/35 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-blue-500"></span>TeamRadar
+              <span class="text-[10px] text-blue-400/60 font-semibold ml-1" data-de="Verwaltung" data-en="Management">Verwaltung</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Rechtliches -->
+        <div>
+          <h4 class="text-white/50 text-xs font-bold uppercase tracking-widest mb-5" data-de="Rechtliches" data-en="Legal">Rechtliches</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="impressum.html" class="text-white/35 hover:text-white transition-colors" data-de="Impressum" data-en="Imprint">Impressum</a></li>
+            <li><a href="datenschutz.html" class="text-white/35 hover:text-white transition-colors" data-de="Datenschutz" data-en="Privacy policy">Datenschutz</a></li>
+            <li><a href="agb.html" class="text-white/35 hover:text-white transition-colors" data-de="AGB" data-en="Terms">AGB</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="border-t border-white/6 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-white/20 text-xs" data-de="© 2026 SchufaCleaner. Ein Produkt der WAMOCON GmbH. Alle Rechte vorbehalten." data-en="© 2026 SchufaCleaner. A product of WAMOCON GmbH. All rights reserved.">© 2026 SchufaCleaner. Ein Produkt der WAMOCON GmbH. Alle Rechte vorbehalten.</p>
+        <div class="flex items-center gap-2 text-white/15 text-xs">
+          <svg class="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/></svg>
+          <span data-de="Alle Systeme betriebsbereit" data-en="All systems operational">Alle Systeme betriebsbereit</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══ KONTAKTFORMULAR MODAL ════════════════════════════════ -->
+  <div id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"
+       class="fixed inset-0 z-[300] flex items-center justify-center p-4"
+       style="display:none; background:rgba(4,7,13,0.82); backdrop-filter:blur(10px);">
+    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg" style="max-height:92vh;overflow-y:auto;">
+
+      <!-- Letterhead Header (WAMOCON-Stil) -->
+      <div class="flex items-start justify-between px-8 pt-7 pb-5 border-b border-slate-100">
+        <div>
+          <div class="flex items-center gap-2.5 mb-1.5">
+            <div class="w-7 h-7 bg-indigo-600 rounded-lg flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+            </div>
+            <span class="font-black text-slate-900 font-display tracking-tight">SchufaCleaner</span>
+            <span class="text-slate-300 mx-1">|</span>
+            <span class="text-sm font-bold text-slate-500">WAMOCON GmbH</span>
+          </div>
+          <p class="text-xs text-slate-400 pl-9">Mergenthalerallee 79–81 · 65760 Eschborn</p>
+        </div>
+        <button onclick="closeContactModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-700 transition-colors shrink-0 mt-0.5" aria-label="Schließen">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Form Body -->
+      <div class="px-8 py-7">
+        <h3 id="modal-title" class="text-xl font-bold text-slate-900 font-display mb-1">Beratung anfragen</h3>
+        <p class="text-slate-400 text-sm mb-7">Legal Expert Package oder allgemeine SchufaCleaner-Anfrage</p>
+
+        <form id="contact-form" onsubmit="submitContactForm(event)" novalidate class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1.5" for="cf-name">Name *</label>
+              <input id="cf-name" type="text" required autocomplete="name"
+                class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                placeholder="Max Müller">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1.5" for="cf-email">E-Mail *</label>
+              <input id="cf-email" type="email" required autocomplete="email"
+                class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                placeholder="max@unternehmen.de">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1.5" for="cf-company">Unternehmen</label>
+            <input id="cf-company" type="text" autocomplete="organization"
+              class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+              placeholder="Musterfirma GmbH">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1.5" for="cf-subject">Betreff</label>
+            <select id="cf-subject"
+              class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition bg-white">
+              <option value="Legal Expert Package Anfrage">Legal Expert Package Anfrage</option>
+              <option value="SchufaCleaner Pro – Beratung">SchufaCleaner Pro – Beratung</option>
+              <option value="Demo anfragen">Demo anfragen</option>
+              <option value="Allgemeine Anfrage">Allgemeine Anfrage</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1.5" for="cf-message">Nachricht *</label>
+            <textarea id="cf-message" required rows="4"
+              class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition resize-none"
+              placeholder="Wie können wir helfen? Beschreiben Sie Ihre SCHUFA-Situation ..."></textarea>
+          </div>
+
+          <div id="cf-error" class="hidden text-sm text-red-500 font-medium">Bitte Name, E-Mail und Nachricht ausfüllen.</div>
+
+          <button type="submit"
+            class="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg shadow-indigo-100 active:scale-95 flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            Anfrage senden
+          </button>
+          <p class="text-center text-xs text-slate-400">Es öffnet sich dein E-Mail-Programm mit der vorausgefüllten Anfrage.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
