@@ -302,6 +302,84 @@ check('Footer Produktfamilie labels correct', () => {
   else fail('Legacy AWAY "Urlaubsplaner" label still present in footer');
 });
 
+/* ── 18. Tiefenanalyse-Feature ───────────────────────────────── */
+check('Tiefenanalyse feature content', () => {
+  // Hero badge
+  if (html.includes('Tiefenanalyse mit Judge-KI') || html.includes('Deep analysis with judge AI'))
+    pass('Tiefenanalyse hero badge present');
+  else fail('Tiefenanalyse hero badge MISSING from hero section');
+
+  // Feature card
+  if (html.match(/Tiefenanalyse mit Judge-KI/))
+    pass('Tiefenanalyse feature card present in features section');
+  else fail('Tiefenanalyse feature card MISSING from features section');
+
+  // Severity badges (Hoch/Mittel/Niedrig)
+  ['Hoch', 'Mittel', 'Niedrig'].forEach(sev => {
+    if (html.includes(`data-de="${sev}"`) || html.includes(`>${sev}<`))
+      pass(`Severity badge "${sev}" present`);
+    else fail(`Severity badge "${sev}" MISSING from Tiefenanalyse mockup`);
+  });
+
+  // FAQ entry
+  if (html.includes('Was ist die Tiefenanalyse?'))
+    pass('Tiefenanalyse FAQ entry present');
+  else fail('Tiefenanalyse FAQ entry MISSING');
+});
+
+/* ── 19. Löschungsantrag-Feature ─────────────────────────────── */
+check('Löschungsantrag feature content', () => {
+  // iPhone mockup button
+  if (html.includes('Löschungsantrag generieren'))
+    pass('Löschungsantrag button present in iPhone mockup');
+  else fail('Löschungsantrag button MISSING from iPhone mockup (screen 2)');
+
+  // Extras card
+  if (html.match(/L.schungsantrag.*Archiv|Archiv.*L.schungsantrag/s) ||
+      html.includes('Löschungsantrag &amp; Archiv'))
+    pass('Löschungsantrag & Archiv extra card present');
+  else fail('Löschungsantrag & Archiv extra card MISSING from extras section');
+
+  // DSGVO Art. 17 reference in extras/features
+  const deletionCount = (html.match(/Art\. 17/g) || []).length;
+  if (deletionCount >= 3) pass(`DSGVO Art. 17 referenced ${deletionCount}× (≥3 required)`);
+  else fail(`DSGVO Art. 17 referenced only ${deletionCount}× – expected ≥ 3`);
+});
+
+/* ── 20. App Navigation (Aktivitäten / Analyse / Archiv) ─────── */
+check('App navigation matches real app routes', () => {
+  // Showcase tab labels
+  if (html.includes('data-tab="dashboard"') && html.match(/data-de="Aktivit[äa]ten"/))
+    pass('Showcase tab "Aktivitäten" present');
+  else fail('Showcase tab "Aktivitäten" MISSING or label wrong');
+
+  if (html.includes('data-tab="requests"') && html.includes('data-de="Analyse"'))
+    pass('Showcase tab "Analyse" present');
+  else fail('Showcase tab "Analyse" MISSING or label wrong');
+
+  if (html.includes('data-tab="calendar"') && html.includes('data-de="Archiv"'))
+    pass('Showcase tab "Archiv" present');
+    else fail('Showcase tab "Archiv" MISSING or label wrong');
+
+  // Correct app URLs in browser bar
+  ['dashboard/activity', 'dashboard/analyse', 'dashboard/archive'].forEach(route => {
+    if (html.includes(route))
+      pass(`App route "/${route}" referenced in showcase`);
+    else fail(`App route "/${route}" MISSING from showcase browser bars`);
+  });
+});
+
+/* ── 21. Aktivitäts-Feed & SCHUFA Basisscore extras ──────────── */
+check('New extra cards (Aktivitäts-Feed & SCHUFA Basisscore)', () => {
+  if (html.match(/Aktivit[äa]ts-Feed/))
+    pass('Aktivitäts-Feed extra card present');
+  else fail('Aktivitäts-Feed extra card MISSING from extras section');
+
+  if (html.match(/SCHUFA Basisscore/))
+    pass('SCHUFA Basisscore extra card present');
+  else fail('SCHUFA Basisscore extra card MISSING from extras section');
+});
+
 /* ── Summary ─────────────────────────────────────────────────── */
 console.log('\n' + '═'.repeat(52));
 const status = failures === 0
