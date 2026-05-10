@@ -128,7 +128,7 @@
           <!-- Badge -->
           <div class="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/20 px-4 py-2 rounded-full mb-8 reveal">
             <span class="flex h-2 w-2 rounded-full bg-indigo-400 animate-ping"></span>
-            <span class="text-indigo-300 text-xs font-bold uppercase tracking-widest" data-de="Neu: KI-gestützte SCHUFA-Analyse" data-en="New: AI-powered SCHUFA Analysis">Neu: KI-gestützte SCHUFA-Analyse</span>
+            <span class="text-indigo-300 text-xs font-bold uppercase tracking-widest" data-de="Neu: Tiefenanalyse mit Judge-KI" data-en="New: Deep analysis with judge AI">Neu: Tiefenanalyse mit Judge-KI</span>
           </div>
 
           <h1 class="text-5xl md:text-6xl xl:text-7xl font-black text-white mb-6 tracking-tight font-display leading-[1.05] reveal">
@@ -274,8 +274,9 @@
                     <div class="sc-finding-expl" style="background:rgba(120,53,15,0.18);"></div>
                     <div class="sc-finding-expl2" style="background:rgba(120,53,15,0.1);"></div>
                   </div>
-                  <!-- Brief-Button -->
+                  <!-- Brief-Buttons -->
                   <div class="sc-letter-btn">📄 Widerspruchsbrief generieren</div>
+                  <div class="sc-letter-btn" style="background:rgba(249,115,22,0.12);color:#ea580c;border-color:rgba(249,115,22,0.25);margin-top:3px;">🗑️ Löschungsantrag generieren</div>
                 </div>
 
                 <!-- Screen 3: Upload / Neue Analyse -->
@@ -582,42 +583,37 @@
           </div>
         </div>
 
-        <!-- CARD 3: Eigene Vorlagen -->
+        <!-- CARD 3: Tiefenanalyse -->
         <div class="bento-card p-8 reveal">
-          <div class="w-12 h-12 rounded-2xl bg-amber-500 flex items-center justify-center mb-5 shadow-lg shadow-amber-100">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+          <div class="w-12 h-12 rounded-2xl bg-violet-600 flex items-center justify-center mb-5 shadow-lg shadow-violet-100">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
           </div>
-          <h3 class="text-xl font-bold text-slate-900 mb-2" data-de="DSGVO-Rechte &amp; Fristen-Info" data-en="GDPR rights &amp; deadline info">DSGVO-Rechte &amp; Fristen-Info</h3>
-          <p class="text-slate-500 text-sm mb-5" data-de="SchufaCleaner erklärt automatisch, welche BDSG-Löschfristen gelten, welche Einträge bestreitbar sind und welche Rechte Sie nach DSGVO Art. 16/17 haben – klar und verständlich." data-en="SchufaCleaner automatically explains which BDSG deletion deadlines apply, which entries are contestable and what rights you have under GDPR Art. 16/17 – clearly and comprehensibly.">SchufaCleaner erklärt automatisch Ihre BDSG-Löschfristen, anfechtbare Einträge und DSGVO-Rechte nach Art. 16/17 – klar und verständlich.</p>
-          <!-- DSGVO rights mockup -->
-          <div class="mt-auto">
-            <div class="flex items-center gap-4 bg-indigo-50 border-2 border-indigo-200 rounded-2xl p-4">
-              <div class="w-12 h-14 bg-white border border-indigo-200 rounded-lg shadow-sm flex flex-col items-center justify-center gap-1">
-                <svg class="w-6 h-6 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                <span class="text-[8px] font-black text-indigo-600">DSGVO</span>
+          <h3 class="text-xl font-bold text-slate-900 mb-2" data-de="Tiefenanalyse mit Judge-KI" data-en="Deep analysis with judge AI">Tiefenanalyse mit Judge-KI</h3>
+          <p class="text-slate-500 text-sm mb-5" data-de="Ein zweites KI-Modell prüft Ihre Einträge mit höchster Genauigkeit: Fortschrittsanzeige in Echtzeit, priorisierte Funde nach Schweregrad (Hoch / Mittel / Niedrig) und tiefergehende Rechtsbewertung." data-en="A second AI model checks your entries with maximum accuracy: real-time progress indicator, findings prioritised by severity (High / Medium / Low) and a deeper legal assessment.">Ein zweites KI-Modell prüft Ihre Einträge mit höchster Genauigkeit: Echtzeit-Fortschrittsanzeige, Funde nach Schweregrad und tiefergehende Rechtsbewertung.</p>
+          <!-- Tiefenanalyse-Mockup -->
+          <div class="mt-auto space-y-3">
+            <div class="bg-slate-50 rounded-xl p-3.5 border border-slate-100">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-semibold text-violet-700" data-de="Tiefenanalyse läuft …" data-en="Deep analysis running …">Tiefenanalyse läuft …</span>
+                <span class="text-xs font-black text-violet-600">72 %</span>
               </div>
-              <div>
-                <div class="font-bold text-sm text-slate-800" data-de="Ihre Rechte nach DSGVO" data-en="Your rights under GDPR">Ihre Rechte nach DSGVO</div>
-                <div class="text-xs text-slate-500 mt-0.5" data-de="Art. 16 Berichtigung · Art. 17 Löschung" data-en="Art. 16 Rectification · Art. 17 Erasure">Art. 16 Berichtigung · Art. 17 Löschung</div>
-                <div class="flex gap-1 mt-2">
-                  <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700" data-de="Fristen automatisch berechnet" data-en="Deadlines automatically calculated">Fristen automatisch berechnet</span>
-                </div>
+              <div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+                <div class="h-1.5 rounded-full bg-gradient-to-r from-violet-500 to-purple-600" style="width:72%"></div>
               </div>
+              <p class="text-[10px] text-slate-400 mt-1.5" data-de="Rechtliche Fristen werden abgeglichen …" data-en="Legal deadlines are being matched …">Rechtliche Fristen werden abgeglichen …</p>
             </div>
-          </div>
-          <!-- AcroForm-PDF mockup -->
-          <div class="mt-auto">
-            <div class="flex items-center gap-4 bg-red-50 border-2 border-red-200 rounded-2xl p-4">
-              <div class="w-12 h-14 bg-white border border-red-200 rounded-lg shadow-sm flex flex-col items-center justify-center gap-1">
-                <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                <span class="text-[8px] font-black text-red-600">PDF</span>
+            <div class="flex gap-2">
+              <div class="flex-1 bg-red-50 border border-red-100 rounded-xl p-2.5 text-center">
+                <div class="text-xl font-black text-red-500">2</div>
+                <div class="text-[9px] font-semibold text-red-400 uppercase tracking-wide" data-de="Hoch" data-en="High">Hoch</div>
               </div>
-              <div>
-                <div class="font-bold text-sm text-slate-800" data-de="AcroForm-PDF" data-en="AcroForm PDF">AcroForm-PDF</div>
-                <div class="text-xs text-slate-500 mt-0.5" data-de="Direkte Feldzuweisung · Stabiler Export" data-en="Direct field assignment · Stable export">Direkte Feldzuweisung · Stabiler Export</div>
-                <div class="flex gap-1 mt-2">
-                  <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700" data-de="Formularfelder auto-befüllt" data-en="Form fields auto-filled">Formularfelder auto-befüllt</span>
-                </div>
+              <div class="flex-1 bg-amber-50 border border-amber-100 rounded-xl p-2.5 text-center">
+                <div class="text-xl font-black text-amber-500">3</div>
+                <div class="text-[9px] font-semibold text-amber-400 uppercase tracking-wide" data-de="Mittel" data-en="Medium">Mittel</div>
+              </div>
+              <div class="flex-1 bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-center">
+                <div class="text-xl font-black text-slate-500">1</div>
+                <div class="text-[9px] font-semibold text-slate-400 uppercase tracking-wide" data-de="Niedrig" data-en="Low">Niedrig</div>
               </div>
             </div>
           </div>
@@ -684,21 +680,21 @@
 
       <!-- Tab buttons -->
       <div class="flex items-center gap-2 overflow-x-auto pb-2 mb-6 justify-center reveal">
-        <button class="tab-btn active" data-tab="dashboard" data-de="Übersicht" data-en="Overview">Übersicht</button>
-        <button class="tab-btn" data-tab="requests" data-de="Meine Widersprüche" data-en="My Disputes">Meine Widersprüche</button>
-        <button class="tab-btn" data-tab="calendar" data-de="Fristen" data-en="Deadlines">Fristen</button>
+        <button class="tab-btn active" data-tab="dashboard" data-de="Aktivitäten" data-en="Activity">Aktivitäten</button>
+        <button class="tab-btn" data-tab="requests" data-de="Analyse" data-en="Analysis">Analyse</button>
+        <button class="tab-btn" data-tab="calendar" data-de="Archiv" data-en="Archive">Archiv</button>
         <button class="tab-btn" data-tab="admin" data-de="Einstellungen" data-en="Settings">Einstellungen</button>
       </div>
 
       <div class="reveal">
-        <!-- TAB: Dashboard -->
+        <!-- TAB: Aktivitäten -->
         <div id="tab-dashboard" class="tab-panel active">
           <div class="app-window">
             <div class="app-window-bar">
               <div class="win-dot win-dot-red"></div>
               <div class="win-dot win-dot-yellow"></div>
               <div class="win-dot win-dot-green"></div>
-              <div class="win-url">schufacleaner.app/dashboard</div>
+              <div class="win-url">schufacleaner.app/dashboard/activity</div>
             </div>
             <div class="app-window-body">
               <div class="app-sidebar">
@@ -708,18 +704,13 @@
                   </div>
                   <span class="sidebar-logo-text">SC</span>
                 </div>
-                <div class="sidebar-nav-item active"><div class="nav-dot active"></div>Übersicht</div>
-                <div class="sidebar-nav-item"><div class="nav-dot"></div>Fristen</div>
-                <div class="sidebar-nav-item"><div class="nav-dot"></div>Meine Widersprüche</div>
+                <div class="sidebar-nav-item active"><div class="nav-dot active"></div>Aktivitäten</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Analyse</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Archiv</div>
                 <div class="sidebar-nav-item"><div class="nav-dot"></div>Einstellungen</div>
-                <div style="margin-top:auto; padding-top:8px; border-top:1px solid rgba(255,255,255,0.06);">
-                  <div class="sidebar-nav-item" style="font-size:10px;opacity:.6;"><div class="nav-dot"></div>Konto</div>
-                  <div class="sidebar-nav-item" style="font-size:10px;opacity:.6;"><div class="nav-dot"></div>Berichte</div>
-                  <div class="sidebar-nav-item" style="font-size:10px;opacity:.6;"><div class="nav-dot"></div>Einstellungen</div>
-                </div>
               </div>
               <div class="app-content">
-                <div class="content-title" data-de="Ihre SCHUFA-Übersicht 📋" data-en="Your SCHUFA overview 📋">Ihre SCHUFA-Übersicht 📋</div>
+                <div class="content-title" data-de="Aktivitäten 📋" data-en="Activity 📋">Aktivitäten 📋</div>
                 <div class="grid grid-cols-3 gap-3 mb-4">
                   <div class="glass-card-dark rounded-xl p-3">
                     <div style="font-size:9px;color:rgba(255,255,255,0.35);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;" data-de="Einträge" data-en="Entries">Einträge</div>
@@ -766,12 +757,12 @@
           </div>
         </div>
 
-        <!-- TAB: Meine Anträge -->
+        <!-- TAB: Analyse -->
         <div id="tab-requests" class="tab-panel">
           <div class="app-window">
             <div class="app-window-bar">
               <div class="win-dot win-dot-red"></div><div class="win-dot win-dot-yellow"></div><div class="win-dot win-dot-green"></div>
-              <div class="win-url">schufacleaner.app/disputes</div>
+              <div class="win-url">schufacleaner.app/dashboard/analyse</div>
             </div>
             <div class="app-window-body">
               <div class="app-sidebar">
@@ -779,13 +770,13 @@
                   <div class="sidebar-logo-icon"><svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
                   <span class="sidebar-logo-text">SC</span>
                 </div>
-                <div class="sidebar-nav-item"><div class="nav-dot"></div>Übersicht</div>
-                <div class="sidebar-nav-item"><div class="nav-dot"></div>Fristen</div>
-                <div class="sidebar-nav-item active"><div class="nav-dot active"></div>Meine Widersprüche</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Aktivitäten</div>
+                <div class="sidebar-nav-item active"><div class="nav-dot active"></div>Analyse</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Archiv</div>
                 <div class="sidebar-nav-item"><div class="nav-dot"></div>Einstellungen</div>
               </div>
               <div class="app-content">
-                <div class="content-title" data-de="Meine Widersprüche" data-en="My Disputes">Meine Widersprüche</div>
+                <div class="content-title" data-de="Meine Analysen" data-en="My Analyses">Meine Analysen</div>
                 <!-- Filter tabs -->
                 <div class="flex gap-2 mb-4">
                   <div style="padding:4px 10px;border-radius:20px;background:#6366f1;color:#fff;font-size:10px;font-weight:700;" data-de="Alle" data-en="All">Alle</div>
@@ -816,12 +807,12 @@
           </div>
         </div>
 
-        <!-- TAB: Kalender -->
+        <!-- TAB: Archiv -->
         <div id="tab-calendar" class="tab-panel">
           <div class="app-window">
             <div class="app-window-bar">
               <div class="win-dot win-dot-red"></div><div class="win-dot win-dot-yellow"></div><div class="win-dot win-dot-green"></div>
-              <div class="win-url">schufacleaner.app/deadlines</div>
+              <div class="win-url">schufacleaner.app/dashboard/archive</div>
             </div>
             <div class="app-window-body">
               <div class="app-sidebar">
@@ -829,14 +820,14 @@
                   <div class="sidebar-logo-icon"><svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
                   <span class="sidebar-logo-text">SC</span>
                 </div>
-                <div class="sidebar-nav-item"><div class="nav-dot"></div>Übersicht</div>
-                <div class="sidebar-nav-item active"><div class="nav-dot active"></div>Fristen</div>
-                <div class="sidebar-nav-item"><div class="nav-dot"></div>Meine Widersprüche</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Aktivitäten</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Analyse</div>
+                <div class="sidebar-nav-item active"><div class="nav-dot active"></div>Archiv</div>
                 <div class="sidebar-nav-item"><div class="nav-dot"></div>Einstellungen</div>
               </div>
               <div class="app-content">
                 <div class="flex items-center justify-between mb-3">
-                  <div class="content-title mb-0" data-de="Fristen Juli 2026" data-en="Deadlines July 2026">Fristen Juli 2026</div>
+                  <div class="content-title mb-0" data-de="Archiv" data-en="Archive">Archiv</div>
                   <div class="flex items-center gap-2 flex-wrap">
                     <div class="flex items-center gap-1.5 text-[10px] text-white/50"><div class="w-2.5 h-2.5 rounded-full bg-indigo-500"></div>Bereinigt</div>
                     <div class="flex items-center gap-1.5 text-[10px] text-white/50"><div class="w-2.5 h-2.5 rounded-full bg-amber-500"></div>Ausstehend</div>
@@ -859,7 +850,7 @@
           <div class="app-window">
             <div class="app-window-bar">
               <div class="win-dot win-dot-red"></div><div class="win-dot win-dot-yellow"></div><div class="win-dot win-dot-green"></div>
-              <div class="win-url">schufacleaner.app/settings</div>
+              <div class="win-url">schufacleaner.app/dashboard/settings</div>
             </div>
             <div class="app-window-body">
               <div class="app-sidebar">
@@ -867,15 +858,14 @@
                   <div class="sidebar-logo-icon"><svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
                   <span class="sidebar-logo-text">SC</span>
                 </div>
-                <div class="sidebar-nav-item"><div class="nav-dot"></div>Übersicht</div>
-                <div class="sidebar-nav-item"><div class="nav-dot"></div>Fristen</div>
-                <div class="sidebar-nav-item"><div class="nav-dot"></div>Meine Widersprüche</div>
-                <div class="sidebar-nav-item"><div class="nav-dot"></div>Einstellungen</div>
-                <div class="sidebar-nav-item active" style="color:#f59e0b;background:rgba(245,158,11,0.1);"><div class="nav-dot" style="background:#f59e0b;"></div>Konto</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Aktivitäten</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Analyse</div>
+                <div class="sidebar-nav-item"><div class="nav-dot"></div>Archiv</div>
+                <div class="sidebar-nav-item active" style="color:#f59e0b;background:rgba(245,158,11,0.1);"><div class="nav-dot" style="background:#f59e0b;"></div>Einstellungen</div>
                 <div class="sidebar-nav-item"><div class="nav-dot"></div>Berichte</div>
               </div>
               <div class="app-content">
-                <div class="content-title" data-de="Konto &amp; Einstellungen" data-en="Account &amp; Settings">Konto &amp; Einstellungen</div>
+                <div class="content-title" data-de="Profil &amp; Einstellungen" data-en="Profile &amp; Settings">Profil &amp; Einstellungen</div>
                 <div class="flex items-center gap-2 mb-3 flex-wrap">
                   <div style="padding:3px 10px;border-radius:20px;background:rgba(245,158,11,0.15);color:#f59e0b;font-size:9px;font-weight:700;border:1px solid rgba(245,158,11,0.2);" data-de="2 offene Widersprüche" data-en="2 open disputes">2 offene Widersprüche</div>
                   <div style="padding:3px 10px;border-radius:20px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);font-size:9px;font-weight:600;" data-de="SCHUFA hochladen" data-en="Upload SCHUFA">+ SCHUFA hochladen</div>
@@ -918,9 +908,9 @@
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         <div class="glass-card rounded-2xl p-6 reveal">
-          <div class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center mb-4"><svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></div>
-          <h3 class="font-bold text-slate-900 mb-2" data-de="Score-Einfluss verstehen" data-en="Understand score impact">Score-Einfluss verstehen</h3>
-          <p class="text-slate-500 text-sm" data-de="Die App zeigt, welche Einträge Ihren Schufa-Score negativ beeinflussen – und warum. Klare Erklärungen zu jedem Eintragtyp, Fristständen und Anfechtbarkeit nach BDSG." data-en="The app shows which entries negatively affect your SCHUFA score – and why. Clear explanations for each entry type, deadline status and contestability under BDSG.">Die App zeigt, welche Einträge Ihren Score negativ beeinflussen – mit klarer Erklärung jedes Eintragstyps, Fristständen und Anfechtbarkeit nach BDSG.</p>
+          <div class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center mb-4"><svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div>
+          <h3 class="font-bold text-slate-900 mb-2" data-de="SCHUFA Basisscore &amp; Zusammenfassung" data-en="SCHUFA base score &amp; summary">SCHUFA Basisscore &amp; Zusammenfassung</h3>
+          <p class="text-slate-500 text-sm" data-de="Die App liest den offiziellen SCHUFA-Basisscore (Prozentwert) aus Ihrer Datenkopie aus, visualisiert ihn als Score-Ring und listet positive &amp; negative Einträge sowie Anfragen getrennt auf." data-en="The app reads the official SCHUFA base score (percentage) from your data copy, displays it as a score ring and lists positive &amp; negative entries as well as inquiries separately.">Die App liest den SCHUFA-Basisscore aus, visualisiert ihn als Score-Ring und listet positive &amp; negative Einträge sowie Anfragen getrennt auf.</p>
         </div>
         <div class="glass-card rounded-2xl p-6 reveal">
           <div class="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center mb-4"><svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
@@ -936,9 +926,9 @@
           <p class="text-slate-500 text-sm" data-de="Name, E-Mail und Kontaktdaten dauerhaft hinterlegen. Widerspruchsschreiben werden automatisch vorausgefüllt und personalisiert." data-en="Store name, email and contact details permanently. Dispute letters are automatically pre-filled and personalised.">Name und Kontaktdaten dauerhaft hinterlegbar. Widerspruchsschreiben werden automatisch vorausgefüllt.</p>
         </div>
         <div class="glass-card rounded-2xl p-6 reveal">
-          <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center mb-4"><svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div>
-          <h3 class="font-bold text-slate-900 mb-2" data-de="Verlaufsberichte" data-en="History reports">Verlaufsberichte</h3>
-          <p class="text-slate-500 text-sm" data-de="Sehen Sie den vollständigen Verlauf aller eingereichten Widersprüche, Antworten der Auskunfteien und Bereinigungen im Zeitverlauf." data-en="See the complete history of all submitted disputes, credit bureau responses and clearances over time.">Vollständiger Verlauf aller Widersprüche, Auskunftei-Antworten und Bereinigungen im Zeitverlauf.</p>
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center mb-4"><svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+          <h3 class="font-bold text-slate-900 mb-2" data-de="Aktivitäts-Feed" data-en="Activity feed">Aktivitäts-Feed</h3>
+          <p class="text-slate-500 text-sm" data-de="Alle Aktionen chronologisch auf einen Blick: Scan-Uploads, gefundene Fehler, generierte Widerspruchsbriefe und Löschungsanträge – mit Direktlink zum jeweiligen Ergebnis." data-en="All actions in chronological order at a glance: scan uploads, found errors, generated dispute letters and deletion requests – with a direct link to each result.">Alle Aktionen chronologisch: Scan-Uploads, gefundene Fehler, generierte Widerspruchsbriefe und Löschungsanträge – mit Direktlink zum Ergebnis.</p>
         </div>
         <div class="glass-card rounded-2xl p-6 reveal">
           <div class="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center mb-4"><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg></div>
@@ -946,9 +936,9 @@
           <p class="text-slate-500 text-sm" data-de="Authentifizierung via Supabase, rollenbasierter Zugriff (RLS), Datenspeicherung ausschließlich in der EU." data-en="Authentication via Supabase, role-based access control (RLS), data storage exclusively in the EU.">Authentifizierung via Supabase, rollenbasierter Zugriff (RLS), EU-Datenspeicherung.</p>
         </div>
         <div class="glass-card rounded-2xl p-6 reveal">
-          <div class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center mb-4"><svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm0 8a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zm12 0a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg></div>
-          <h3 class="font-bold text-slate-900 mb-2" data-de="TeamRadar-Integration" data-en="TeamRadar integration">TeamRadar-Integration</h3>
-          <p class="text-slate-500 text-sm" data-de="SchufaCleaner ist Teil der WAMOCON-Produktfamilie. Als Micro-Frontend in TeamRadar einbettbar – für Unternehmen mit mehreren WAMOCON-Apps." data-en="SchufaCleaner is part of the WAMOCON product family. Embeddable as a micro-frontend in TeamRadar – for companies with multiple WAMOCON apps.">SchufaCleaner ist Teil der WAMOCON-Produktfamilie – als Micro-Frontend in TeamRadar einbettbar.</p>
+          <div class="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center mb-4"><svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></div>
+          <h3 class="font-bold text-slate-900 mb-2" data-de="Löschungsantrag &amp; Archiv" data-en="Deletion request &amp; archive">Löschungsantrag &amp; Archiv</h3>
+          <p class="text-slate-500 text-sm" data-de="Neben dem Widerspruchsbrief generiert SchufaCleaner rechtssichere Löschungsanträge nach DSGVO Art. 17. Abgeschlossene Analysen können archiviert oder dauerhaft gelöscht werden." data-en="In addition to the dispute letter, SchufaCleaner generates legally sound deletion requests under GDPR Art. 17. Completed analyses can be archived or permanently deleted.">Neben dem Widerspruchsbrief generiert SchufaCleaner Löschungsanträge nach DSGVO Art. 17. Analysen können archiviert oder dauerhaft gelöscht werden.</p>
         </div>
       </div>
     </div>
@@ -1103,6 +1093,13 @@
         <h2 class="text-4xl font-black text-slate-900 font-display tracking-tight" data-de="Häufige Fragen." data-en="Frequently asked questions.">Häufige Fragen.</h2>
       </div>
       <div class="space-y-3 reveal">
+
+        <div class="faq-item">
+          <button class="faq-question" data-de="Was ist die Tiefenanalyse?" data-en="What is the deep analysis?">Was ist die Tiefenanalyse?
+            <svg class="faq-chevron w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer" data-de="Die Tiefenanalyse ist eine zweite, unabhängige KI-Prüfung Ihrer SCHUFA-Einträge durch ein spezialisiertes Judge-Modell. Sie liefert priorisierte Funde nach Schweregrad (Hoch / Mittel / Niedrig) und zeigt den Fortschritt in Echtzeit an. Die Tiefenanalyse ergänzt die reguläre Analyse und ist im Pro-Plan enthalten." data-en="Deep analysis is a second, independent AI review of your SCHUFA entries by a specialised judge model. It delivers prioritised findings by severity (High / Medium / Low) and shows real-time progress. Deep analysis complements the regular scan and is included in the Pro plan.">Die Tiefenanalyse ist eine zweite KI-Prüfung durch ein Judge-Modell. Sie liefert priorisierte Funde nach Schweregrad (Hoch / Mittel / Niedrig) und zeigt den Fortschritt in Echtzeit an. Im Pro-Plan enthalten.</div>
+        </div>
 
         <div class="faq-item">
           <button class="faq-question" data-de="Wie funktioniert die SCHUFA-Analyse?" data-en="How does the SCHUFA analysis work?">Wie funktioniert die SCHUFA-Analyse?
